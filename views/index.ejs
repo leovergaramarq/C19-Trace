@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include ./partials/header.ejs%>
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include ./partials/navbar.ejs%>
+    <!-- MAIN CONTENT -->
+
+    <header class="main">
+        <div class="item1">
+            <img src="/images/main_image.jpg" alt="">
+            <br>
+            <p>image</p>
+        </div>
+        <div>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque consequatur iure officia quos omnis, magnam
+            dignissimos sunt quae dolorem a atque nostrum culpa blanditiis sint eveniet quis. Atque ad dolore, deserunt
+            fuga ex quas modi repellendus. Nesciunt beatae possimus, cum, nemo nihil ullam veritatis repellat itaque eos
+            modi quas magni!
+        </div>
+
+
+    </header>
+    <div class="info">
+        <div>
+            <img src='img/img5.jpg' alt="">
+            <h2>Code Editor</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit fugiat, sed corporis ea dignissimos
+                tempora neque obcaecati labore sint id.</p>
+        </div>
+        <div>
+
+            <img src='img/img2.jpg' alt="">
+            <h2>Programming</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius voluptatem similique laboriosam vitae
+                consequatur natus omnis est harum reiciendis dolor voluptatum veniam, non veritatis minima qui quaerat
+                hic voluptatibus minus!</p>
+        </div>
+        <div>
+
+            <img src='img/img3.jpg' alt="">
+            <h2>Networks</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, quos nemo! Soluta suscipit, repellendus
+                et labore quaerat accusantium ad blanditiis!</p>
+        </div>
+        <div>
+            <img src='img/img4.png' alt="">
+            <h2>Computer Science</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate, non sunt vero itaque corrupti ipsa.
+                Nesciunt perferendis beatae consequatur illum.</p>
+
+        </div>
+    </div>
+    <!-- 
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="card">
+
+
+                <form action="" id="formTask">
+                    <h2 class="text-center">Add Task</h2>
+                    <div class="form-group">
+                        <input type="text" id="title" placeholder="Add A Todo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="description" class="form-control" placeholder="Add a Description" name="name"
+                            id="" cols="30" rows="8"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </form>
+
+            </div>
+
+
+        </div>
+
+        <div id="tasks" class="tasks">
+
+        </div>
+    </div>
+-->
+    <!-- SCRIPTS -->
+    <script src="app.js"></script>
+
+    <%- include ./partials/footer.ejs %>
+
+</body>
+
 </html>
