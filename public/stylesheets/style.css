@@ -265,6 +265,20 @@ li {
     width: 100%;
 }
 
+.img-developer {
+    height: 450px;
+}
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-dev .title {
+   text-align: center; 
+   margin-bottom: 40px;
+}
+
 @media (max-width: 900px) {
     .main {
         grid-template-columns: 1fr;
