@@ -1,1 +1,67 @@
+.ho {
+    &__showcase {
+        height: 500px;
+        background: url('/images/banner3.jpg') no-repeat center center/cover;
+        padding: 20px;
+        
+        &__main {
+            display: flex;
+            height: 450px;
+            // margin: 20px;
+    
+            &__item {
+                width: 50%;
+            }
+    
+            &__item:nth-child(1) {
+                padding: 50px 60px;
+                display: flex;
+                flex-direction: column;
+                // background: $blue-400;
+                background: $color-background-white;
+                color: $gray-800;
+    
+                button {
+                    transform: translateY(160px);
+                    width: 160px;
+                }
+            }
 
+            &__item:nth-child(2) {
+                background-image: url("/images/main_image.jpg");
+                background-size: contain;
+                background-position-x: center;
+            }
+        }
+
+    }
+    
+    &__info {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+        gap: 25px;
+        margin: 50px;
+        color: rgb(67, 67, 67);
+        min-height: 700px;
+        height: 700px;
+        
+        h2 {
+            padding-top: 10px;
+            
+            &:hover {
+                cursor: pointer;
+                border-bottom: 3px solid rgb(97,97,97);
+            }
+        }
+
+        p {
+            padding-top: 20px;
+        }
+
+        img {
+            height: 200px;
+            width: 100%;
+        }
+    }
+}

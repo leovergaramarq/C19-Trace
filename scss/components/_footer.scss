@@ -1,0 +1,31 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    padding: 20px;
+    background-color: $gray-900;
+    color: white;
+    
+    h2 {
+        font-size: $m-size;
+        padding: 4px 0;
+    }
+    
+    ul {
+        padding: 0;
+        li {
+            font-size: $xs-size;
+            text-align: center;
+        }
+    }
+
+}
+  
+.copy {
+    grid-column: 1/5;
+    padding-top: 20px;
+}
+  
