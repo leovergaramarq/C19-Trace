@@ -14,6 +14,10 @@
             .country {
                 stroke: black;
                 stroke-opacity: 0.1;
+
+                &:hover {
+                    stroke-opacity: 0.3;
+                }
             }
         }
     }
