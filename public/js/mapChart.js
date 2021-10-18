@@ -1,25 +1,22 @@
+// Data
 import data from './GeoChart.world.geo.json' assert {type: 'json'};
+
 (() => {
 
-// Data
-
-// Eventos
-
-
-// Funciones
+// Funciones D3
 const { select, geoPath, geoMercator, min, max, scaleLinear } = d3;
 
 // Propiedad a analizar
-const property = 'pop_est';
+const property = 'gdp_md_est';
 
 // SVG settings
 const svg = select('.ex__map__chart');
 const width = 800, height = 500;
 svg
-.attr('width', width)
+    .attr('width', width)
     .attr('height', height);
 
-    // Color settings
+// Color settings
 const minProp = min(data.features, feature => feature.properties[property]);
 const maxProp = max(data.features, feature => feature.properties[property]);
 const colorScale = scaleLinear()
@@ -41,6 +38,7 @@ function updateProjection(feature) {
     pathGenerator = geoPath().projection(projection);
 }
 updateProjection(null);
+
 // Renderizado de países
 function updateAll() {
     svg.selectAll('.country')
@@ -51,16 +49,12 @@ function updateAll() {
             exit => exit.remove()
         )
         .on('click', e => {
-            // console.log(selectedCountry);
-            // console.log(feature.target.getAttribute('d'));
             updateProjection(data.features[e.target.getAttribute('featureIndex')]);
-            // updateProjection(data.features[i]);
             updateAll();
-            // console.log(selectedCountry);
-            // svg.selectAll('.country').attr('d', feature => pathGenerator(feature))
         })
         .attr('class', 'country')
         .transition()
+        .duration(1000)
         .attr('fill', feature => colorScale(feature.properties[property]))
         .attr('featureIndex', (feature, i) => i)
         .attr('d', feature => pathGenerator(feature))

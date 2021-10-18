@@ -4486,6 +4486,8 @@ li {
     .ex__map__chart .country {
       stroke: black;
       stroke-opacity: 0.1; }
+      .ex__map__chart .country:hover {
+        stroke-opacity: 0.3; }
   .ex__bar__chart {
     border: 1px solid #aaa; }
     .ex__bar__chart rect {
