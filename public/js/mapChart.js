@@ -1,7 +1,7 @@
-// Data
-
-console.log("wey");
 import data from './GeoChart.world.geo.json' assert {type: 'json'};
+(() => {
+
+// Data
 
 // Eventos
 
@@ -13,7 +13,7 @@ const { select, geoPath, geoMercator, min, max, scaleLinear } = d3;
 const property = 'pop_est';
 
 // SVG settings
-const svg = select('.ex_map_chart');
+const svg = select('.ex__map__chart');
 const width = 800, height = 500;
 svg
 .attr('width', width)
@@ -82,3 +82,4 @@ updateAll();
 //     )
 //     .attr('x', 10)
 //     .attr('y', 25);
+})()
