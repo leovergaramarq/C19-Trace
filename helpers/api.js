@@ -148,10 +148,11 @@ router.get('/line', async (req, res, next)=>{
         const stage1 = {
             $group: {
                 _id: {
+                    _id: '$_id',
                     Ccode: '$Ccode',
                     location: '$location',
                     continent: '$continent',
-                    pupulation: '$population',
+                    population: '$population',
                     deaths: '$deaths',
                     total_cases: '$total_cases',
                     year: {
@@ -169,10 +170,11 @@ router.get('/line', async (req, res, next)=>{
         stage2 = {
             $group:{
                 _id:{
+                    _id: '$_id._id',
                     Ccode: '$_id.Ccode',
                     location: '$_id.location',
                     continent: '$_id.continent',
-                    pupulation: '$_id.population',
+                    population: '$_id.population',
                     deaths: '$_id.deaths',
                     total_cases: '$_id.total_cases',
                 },
@@ -201,6 +203,14 @@ router.get('/line', async (req, res, next)=>{
         }
         pipline.push(stage1);
         pipline.push(stage2);
+        pipline.push({
+                $replaceWith: {
+                    $mergeObjects: [
+                        '$$CURRENT',
+                        '$_id'
+                    ]
+                }
+        });
     }
 
     try{
