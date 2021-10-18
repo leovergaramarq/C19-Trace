@@ -1,5 +1,7 @@
-// Data
 import data from './GeoChart.world.geo.json' assert {type: 'json'};
+(() => {
+
+// Data
 
 // Eventos
 
@@ -81,3 +83,4 @@ updateAll();
 //     )
 //     .attr('x', 10)
 //     .attr('y', 25);
+})()

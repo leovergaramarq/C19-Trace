@@ -1,6 +1,6 @@
 .ex {
     padding: 20px;
-    height: 800px;
+    height: 1200px;
     
     &__map {
 
@@ -16,5 +16,41 @@
                 stroke-opacity: 0.1;
             }
         }
+    }
+
+    &__bar {
+
+        &__chart {
+            border: 1px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                font-family: helvetica;
+                font-size: 10px;
+                text-anchor: middle;
+            }
+        }
+        
+    }
+
+    &__bar2 {
+
+        &__chart {
+            border: 1px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                // font-family: helvetica;
+                // font-size: 10px;
+                // text-anchor: middle;
+            }
+        }
+        
     }
 }
