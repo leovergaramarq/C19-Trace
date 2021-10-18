@@ -1,6 +1,6 @@
 .ex {
     padding: 20px;
-    height: 1200px;
+    height: 2000px;
     
     &__map {
 
@@ -21,7 +21,9 @@
     &__bar {
 
         &__chart {
-            border: 1px solid #aaa;
+            width: 800px;
+            height: 600px;
+            border: 10px solid #aaa;
             
             rect {
                 fill: steelblue;
@@ -53,4 +55,25 @@
         }
         
     }
+
+    &__line {
+
+        &__chart {
+            width: 800px;
+            height: 600px;
+            border: 10px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                font-family: helvetica;
+                font-size: 10px;
+                text-anchor: middle;
+            }
+        }
+        
+    }
+
 }

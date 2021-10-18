@@ -12,16 +12,24 @@
     
 <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        svg{
-            border: 1px solid #aaa;
+        .ex__bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+            padding: 10px;
+            margin: 20px;
         }
-        rect {
-            fill: steelblue;
+        .ex__line {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+            padding: 10px;
+            margin: 20px;
         }
-        text {
-            font-family: helvetica;
-            font-size: 10px;
-            text-anchor: middle;
+        .ex__bar__form {
+
+            display: block;
+            background-color: rgb(82, 87, 87);
         }
     </style>
     <title> <%= title %> </title>

@@ -4476,7 +4476,7 @@ li {
 
 .ex {
   padding: 20px;
-  height: 1200px; }
+  height: 2000px; }
   .ex__map__chart {
     width: 800px;
     padding: 10px;
@@ -4487,7 +4487,9 @@ li {
       stroke: black;
       stroke-opacity: 0.1; }
   .ex__bar__chart {
-    border: 1px solid #aaa; }
+    width: 800px;
+    height: 600px;
+    border: 10px solid #aaa; }
     .ex__bar__chart rect {
       fill: steelblue; }
     .ex__bar__chart text {
@@ -4498,6 +4500,16 @@ li {
     border: 1px solid #aaa; }
     .ex__bar2__chart rect {
       fill: steelblue; }
+  .ex__line__chart {
+    width: 800px;
+    height: 600px;
+    border: 10px solid #aaa; }
+    .ex__line__chart rect {
+      fill: steelblue; }
+    .ex__line__chart text {
+      font-family: helvetica;
+      font-size: 10px;
+      text-anchor: middle; }
 
 footer {
   position: absolute;
