@@ -11,12 +11,11 @@ const PATH = '/api/global/';
 
 // ...
 let data = [];
-let queryTools = {};
+let period = WEEK, variable = TOTAL_CPM;
+let colorScale;
 
 // Eventos
 (() => {
-    const {period, variable} = queryTools;
-
     const variables = {
         'Total cases': TOTAL_C,
         'Total cases per million': TOTAL_CPM,
@@ -25,12 +24,14 @@ let queryTools = {};
     }
     const vKeys = Object.keys(variables);
     const $dropdownVar = document.querySelector('.dropdown-var');
-    const updateDropdownVar = txt => $dropdownVar.firstElementChild.textContent = txt;
+    const $aVar = $dropdownVar.firstElementChild;
+    const updateDropdownVar = txt => $aVar.textContent = txt;
 
     let i = 0;
     for(let child of $dropdownVar.querySelector('ul').children) {
         const txt = vKeys[i];
-        
+        if(variable === variables[txt]) $aVar.textContent = txt;
+
         child.textContent = txt;
         child.addEventListener('click', e => {
             updateDropdownVar(txt);
@@ -46,11 +47,13 @@ let queryTools = {};
     }
     const pKeys = Object.keys(periods);
     const $dropdownPer = document.querySelector('.dropdown-per');
-    const updateDropdownPer = txt => $dropdownPer.firstElementChild.textContent = txt;
+    const $aPer = $dropdownPer.firstElementChild;
+    const updateDropdownPer = txt => $aPer.textContent = txt;
 
     i = 0;
     for(let child of $dropdownPer.querySelector('ul').children) {
         const txt = pKeys[i];
+        if(period === periods[txt]) $aPer.textContent = txt;
         
         child.textContent = txt;
         child.addEventListener('click', e => {
@@ -61,10 +64,12 @@ let queryTools = {};
     }
 })();
 
-// Funciones
+// FUNCIONES
 // Data
-function getData(period, variable) {
-    queryTools = {period, variable};
+function getData(_period = period, _variable = variable) {
+    if(period !== _period) period = _period;
+    if(variable !== _variable) variable = _variable;
+    variable = _variable;
     
     fetch('/api/global/'+period)
         .then(response => response.json())
@@ -77,15 +82,57 @@ function getData(period, variable) {
                     [variable]: country[variable]
                 });
             });
+            initColorScale();
+            updateCountries();
         });
 }
-getData(WEEK, TOTAL_C);
+getData();
+
+// Color settings
+function initColorScale() {
+    const minProp = min(data, country => country[variable] < 0 ? 0 : country[variable]);
+    const maxProp = max(data, country => country[variable]);
+    console.log(minProp, maxProp);
+    colorScale = scaleLinear()
+        .domain([minProp, maxProp])
+        .range(['#ccc', 'red']);
+}
+
+function getCountryFeature(country) {
+    return dataGeoJson.features.find(f => f.properties.adm0_a3 === country.iso3);
+}
+
+function getCountryFeatureIndex(country) {
+    return dataGeoJson.features.findIndex(f => f.properties.adm0_a3 === country.iso3);
+}
+
+// Renderizado de países
+function updateCountries() {
+    svg.selectAll('.country')
+        .data(data)
+        .join(
+            enter => (
+                enter.append('path').attr('d', country => pathGenerator(getCountryFeature(country)))
+            ),
+            update => update,
+            exit => exit.remove()
+        )
+        .on('click', e => {
+            updateProjection(dataGeoJson.features[e.target.getAttribute('featureIndex')]);
+            updateCountries();
+        })
+        .attr('class', 'country')
+        .transition()
+        .duration(1000)
+        .attr('fill', country => colorScale(country[variable] || 0))
+        .attr('featureIndex', country => getCountryFeatureIndex(country))
+        .attr('d', country => pathGenerator(getCountryFeature(country)))
+        .attr('stroke', 'black')
+        .attr('stroke-opacity', '0.1')
+}
 
 // Funciones D3
 const { select, geoPath, geoMercator, min, max, scaleLinear } = d3;
-
-// Propiedad a analizar
-const property = 'gdp_md_est';
 
 // SVG settings
 const svg = select('.ex__map__area__chart');
@@ -93,53 +140,22 @@ const width = 800, height = 600;
 svg
     .attr('width', width)
     .attr('height', height);
-
-// Color settings
-const minProp = min(dataGeoJson.features, feature => feature.properties[property]);
-const maxProp = max(dataGeoJson.features, feature => feature.properties[property]);
-const colorScale = scaleLinear()
-    .domain([minProp, maxProp])
-    .range(['#ccc', 'red']);
     
 // País seleccionado
-let selectedCountry = null;
+let selCountryFeature = null;
 
 // Tipo de proyección
 let pathGenerator = null;
 
 function updateProjection(feature) {
-    selectedCountry = selectedCountry === feature ? null : feature;
+    selCountryFeature = selCountryFeature === feature ? null : feature;
 
     const projection = geoMercator()
-        .fitSize([width, height], selectedCountry || dataGeoJson)
+        .fitSize([width, height], selCountryFeature || dataGeoJson)
         .precision(100);
     pathGenerator = geoPath().projection(projection);
 }
 updateProjection(null);
-
-// Renderizado de países
-function updateAll() {
-    svg.selectAll('.country')
-        .data(dataGeoJson.features)
-        .join(
-            enter => enter.append('path').attr('d', feature => pathGenerator(feature)),
-            update => update,
-            exit => exit.remove()
-        )
-        .on('click', e => {
-            updateProjection(dataGeoJson.features[e.target.getAttribute('featureIndex')]);
-            updateAll();
-        })
-        .attr('class', 'country')
-        .transition()
-        .duration(1000)
-        .attr('fill', feature => colorScale(feature.properties[property]))
-        .attr('featureIndex', (feature, i) => i)
-        .attr('d', feature => pathGenerator(feature))
-        .attr('stroke', 'black')
-        .attr('stroke-opacity', '0.1')
-}
-updateAll();
 
 // Renderizado de texto
 // svg.selectAll('.label')
