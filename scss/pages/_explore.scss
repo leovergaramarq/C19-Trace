@@ -1,3 +1,56 @@
 .ex {
+    padding: 20px;
+    height: 1200px;
     
+    &__map {
+
+        &__chart {
+            width: 800px;
+            padding: 10px;
+            border: 1px black groove;
+            border-radius: 5px;;
+            background: rgb(165, 189, 199);
+
+            .country {
+                stroke: black;
+                stroke-opacity: 0.1;
+            }
+        }
+    }
+
+    &__bar {
+
+        &__chart {
+            border: 1px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                font-family: helvetica;
+                font-size: 10px;
+                text-anchor: middle;
+            }
+        }
+        
+    }
+
+    &__bar2 {
+
+        &__chart {
+            border: 1px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                // font-family: helvetica;
+                // font-size: 10px;
+                // text-anchor: middle;
+            }
+        }
+        
+    }
 }

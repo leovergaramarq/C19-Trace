@@ -4474,6 +4474,31 @@ li {
     height: 200px;
     width: 100%; }
 
+.ex {
+  padding: 20px;
+  height: 1200px; }
+  .ex__map__chart {
+    width: 800px;
+    padding: 10px;
+    border: 1px black groove;
+    border-radius: 5px;
+    background: #a5bdc7; }
+    .ex__map__chart .country {
+      stroke: black;
+      stroke-opacity: 0.1; }
+  .ex__bar__chart {
+    border: 1px solid #aaa; }
+    .ex__bar__chart rect {
+      fill: steelblue; }
+    .ex__bar__chart text {
+      font-family: helvetica;
+      font-size: 10px;
+      text-anchor: middle; }
+  .ex__bar2__chart {
+    border: 1px solid #aaa; }
+    .ex__bar2__chart rect {
+      fill: steelblue; }
+
 footer {
   position: absolute;
   bottom: 0;
