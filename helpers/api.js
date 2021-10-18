@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { NotExtended } = require('http-errors');
 const Country = require('../models/Country');
 const Region = require('../models/Region');
+const {isInt} = require('./numeric');
 
 router.get(/^\/(global|continental)\/(month|week|history)?$/, async (req, res, next)=>{
     
@@ -91,8 +92,13 @@ router.get(/^\/(global|continental)\/(month|week|history)?$/, async (req, res, n
 
 router.get('/line', async (req, res, next)=>{
     // Destructuring body
-    let {period, group, country} = req.body;
+    
+    let {period, group, country} = req.body==={}? req.body: require('url').parse(req.url, true).query;
 
+    if(typeof(period)!=='number' && isInt(period)){
+        period = parseInt(period);
+    }
+    
     // Setting defaults
     // period= period || 'history';
     group = group || 'day';
