@@ -4475,19 +4475,39 @@ li {
     width: 100%; }
 
 .ex {
-  padding: 20px;
-  height: 1200px; }
-  .ex__map__chart {
-    width: 800px;
-    padding: 10px;
-    border: 1px black groove;
-    border-radius: 5px;
-    background: #a5bdc7; }
-    .ex__map__chart .country {
-      stroke: black;
-      stroke-opacity: 0.1; }
-      .ex__map__chart .country:hover {
-        stroke-opacity: 0.3; }
+  padding: 20px 80px;
+  height: 1200px;
+  text-align: center; }
+  .ex section {
+    margin-bottom: 60px; }
+  .ex__map h2, .ex__map .h2 {
+    text-align: left; }
+  .ex__map__area {
+    margin: auto;
+    border: 1px #4442 groove;
+    width: 90%;
+    text-align: center; }
+    .ex__map__area .dropdowns {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      transform: translate(20px, 20px); }
+      .ex__map__area .dropdowns .dropdown {
+        padding: 0 10px; }
+        .ex__map__area .dropdowns .dropdown a {
+          font-size: 0.8rem; }
+        .ex__map__area .dropdowns .dropdown li {
+          font-size: 0.8rem; }
+          .ex__map__area .dropdowns .dropdown li:hover {
+            cursor: pointer; }
+    .ex__map__area__chart {
+      width: 800px;
+      padding: 10px; }
+      .ex__map__area__chart .country {
+        stroke: black;
+        stroke-opacity: 0.1; }
+        .ex__map__area__chart .country:hover {
+          stroke-opacity: 0.3; }
   .ex__bar__chart {
     border: 1px solid #aaa; }
     .ex__bar__chart rect {
@@ -4503,14 +4523,14 @@ li {
 
 footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   padding: 20px;
   background-color: #212529;
-  color: white; }
+  color: white;
+  top: 100%; }
   footer h2, footer .h2 {
     font-size: 1.2rem;
     padding: 4px 0; }
