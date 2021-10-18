@@ -117,6 +117,11 @@ router.get('/line', async (req, res, next)=>{
             $sample: { size: parseInt(country) }
         });
     }
+    else{
+        pipline.push({
+            $match: {}
+        });
+    }
 
     // if we get a period (it must to be a number)
     if (period && typeof(period) === 'number') {
