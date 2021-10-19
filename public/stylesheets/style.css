@@ -4474,6 +4474,12 @@ li {
     height: 200px;
     width: 100%; }
 
+.row_about {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  align-items: center; }
+
 .ex {
   padding: 20px 80px;
   height: 1200px;
@@ -4530,10 +4536,24 @@ li {
         stroke-opacity: 0.1; }
         .ex__map__area__chart .country:hover {
           stroke-opacity: 0.3; }
+  .ex__bar__area {
+    margin: auto;
+    border: 1px #4442 groove;
+    width: 90%;
+    text-align: center; }
+    .ex__bar__area__form {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      transform: translate(20px, 20px);
+      width: 200px; }
+      .ex__bar__area__form__form-group {
+        width: 100%;
+        margin: 10px; }
   .ex__bar__chart {
-    border: 1px solid #aaa; }
-    .ex__bar__chart rect {
-      fill: steelblue; }
+    width: 850px;
+    height: 600px;
+    border: 0px solid #aaa; }
     .ex__bar__chart text {
       font-family: helvetica;
       font-size: 10px;
@@ -4542,6 +4562,16 @@ li {
     border: 1px solid #aaa; }
     .ex__bar2__chart rect {
       fill: steelblue; }
+  .ex__line__chart {
+    width: 950px;
+    height: 600px;
+    border: 10px solid #aaa; }
+    .ex__line__chart rect {
+      fill: steelblue; }
+    .ex__line__chart text {
+      font-family: helvetica;
+      font-size: 10px;
+      text-anchor: middle; }
 
 footer {
   position: absolute;

@@ -94,12 +94,32 @@
 
     &__bar {
 
-        &__chart {
-            border: 1px solid #aaa;
-            
-            rect {
-                fill: steelblue;
+        &__area {
+            margin: auto;
+            border: 1px #4442 groove;
+            width: 90%;
+            text-align: center;
+
+            &__form {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                transform: translate(20px, 20px);
+                width: 200px;
+
+                &__form-group {
+                    width: 100%;
+                    margin: 10px;
+                }
             }
+
+        }
+
+        &__chart {
+            width: 850px;
+            height: 600px;
+            border: 0px solid #aaa;
+            
             
             text {
                 font-family: helvetica;
@@ -127,4 +147,25 @@
         }
         
     }
+
+    &__line {
+
+        &__chart {
+            width: 950px;
+            height: 600px;
+            border: 10px solid #aaa;
+            
+            rect {
+                fill: steelblue;
+            }
+            
+            text {
+                font-family: helvetica;
+                font-size: 10px;
+                text-anchor: middle;
+            }
+        }
+        
+    }
+
 }
