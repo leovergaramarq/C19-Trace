@@ -1,14 +1,14 @@
 footer {
-    position: absolute;
+    // position: absolute;
     width: 100%;
-    display: grid;
+    display: none;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     padding: 20px;
     background-color: $gray-900;
     color: white;
-    top: 100%;
-    // bottom: 0;
+    // top: 100%;
+    bottom: 0;
 
     h2 {
         font-size: $m-size;

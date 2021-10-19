@@ -96,15 +96,15 @@ function getData(_period = period, _variable = variable) {
     
     data = [];
 
-    fetch('/api/global/'+period)
+    fetch(PATH + period)
         .then(response => response.json())
         .then(json => {
             json.forEach(country => {
-                const {Ccode: iso3, location: name, population} = country;
+                const {Ccode: iso3, location: name} = country;
                 data.push({
                     iso3,
                     name,
-                    population,
+                    // population,
                     [variable]: country[variable]
                 });
             });

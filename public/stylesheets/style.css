@@ -4262,7 +4262,7 @@ html {
   position: relative; }
 
 body {
-  padding-top: 60px;
+  padding-top: 60px 0 20px 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
@@ -4482,12 +4482,10 @@ li {
 
 .ex {
   padding: 20px 80px;
-  height: 1200px;
+  height: 1600px;
   text-align: center; }
   .ex section {
     margin-bottom: 60px; }
-  .ex__map h2, .ex__map .h2 {
-    text-align: left; }
   .ex__map__area {
     margin: auto;
     border: 1px #4442 groove;
@@ -4512,9 +4510,6 @@ li {
         display: inline-block;
         font-size: 0.8rem;
         padding: 0; }
-      .ex__map__area__popover p:nth-child(1) {
-        color: red;
-        display: none; }
     .ex__map__area .dropdowns {
       position: absolute;
       display: flex;
@@ -4552,37 +4547,32 @@ li {
         margin: 10px; }
   .ex__bar__chart {
     width: 850px;
-    height: 600px;
+    height: 550px;
     border: 0px solid #aaa; }
     .ex__bar__chart text {
       font-family: helvetica;
-      font-size: 10px;
+      font-size: 12px;
       text-anchor: middle; }
-  .ex__bar2__chart {
-    border: 1px solid #aaa; }
-    .ex__bar2__chart rect {
-      fill: steelblue; }
-  .ex__line__chart {
-    width: 950px;
-    height: 600px;
-    border: 10px solid #aaa; }
-    .ex__line__chart rect {
-      fill: steelblue; }
-    .ex__line__chart text {
-      font-family: helvetica;
-      font-size: 10px;
-      text-anchor: middle; }
+  .ex__line__area {
+    border: 1px black groove;
+    width: min-content;
+    height: min-content; }
+  .ex h2, .ex .h2 {
+    text-align: left; }
+
+.navbar {
+  padding-left: 10px;
+  height: 60px; }
 
 footer {
-  position: absolute;
   width: 100%;
-  display: grid;
+  display: none;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   padding: 20px;
   background-color: #212529;
   color: white;
-  top: 100%; }
+  bottom: 0; }
   footer h2, footer .h2 {
     font-size: 1.2rem;
     padding: 4px 0; }

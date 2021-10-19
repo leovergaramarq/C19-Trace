@@ -1,6 +1,7 @@
+
 .ex {
     padding: 20px 80px;
-    height: 1200px;
+    height: 1600px;
     text-align: center;
 
     section {
@@ -8,10 +9,6 @@
     }
     
     &__map {
-
-        h2 {
-            text-align: left;
-        }
 
         &__area {
             margin: auto;
@@ -43,14 +40,7 @@
                     display: inline-block;
                     font-size: $xs-size;
                     padding: 0;
-                    // font-style: italic;
                 }
-
-                p:nth-child(1) {
-                    color: red;
-                    display: none;
-                }
-
                 
             }
 
@@ -112,60 +102,49 @@
                     margin: 10px;
                 }
             }
-
         }
 
         &__chart {
             width: 850px;
-            height: 600px;
+            height: 550px;
             border: 0px solid #aaa;
-            
             
             text {
                 font-family: helvetica;
-                font-size: 10px;
+                font-size: 12px;
                 text-anchor: middle;
             }
         }
-        
-    }
-
-    &__bar2 {
-
-        &__chart {
-            border: 1px solid #aaa;
-            
-            rect {
-                fill: steelblue;
-            }
-            
-            text {
-                // font-family: helvetica;
-                // font-size: 10px;
-                // text-anchor: middle;
-            }
-        }
-        
     }
 
     &__line {
 
-        &__chart {
-            width: 950px;
-            height: 600px;
-            border: 10px solid #aaa;
-            
-            rect {
-                fill: steelblue;
-            }
-            
-            text {
-                font-family: helvetica;
-                font-size: 10px;
-                text-anchor: middle;
-            }
+        &__area {
+
+            border: 1px black groove;
+            width: min-content;
+            height: min-content;
+            // padding-top: 40px;
+            // &__chart {
+            //     width: 950px;
+            //     height: 600px;
+            //     border: 10px solid #aaa;
+                
+            //     rect {
+            //         fill: steelblue;
+            //     }
+                
+            //     text {
+            //         font-family: helvetica;
+            //         font-size: 10px;
+            //         text-anchor: middle;
+            //     }
+            // }
         }
         
     }
 
+    h2 {
+        text-align: left;
+    }
 }

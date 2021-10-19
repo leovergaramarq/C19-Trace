@@ -1,105 +1,222 @@
+// new Chart(document.querySelector('.ex__line__area__chart').getContext('2d'), {
+//     type: 'bar',
+//     data: {
+//         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+//         datasets: [{
+//             label: '# of Votes',
+//             data: [12, 19, 3, 5, 2, 3],
+//             backgroundColor: [
+//                 'rgba(255, 99, 132, 0.2)',
+//                 'rgba(54, 162, 235, 0.2)',
+//                 'rgba(255, 206, 86, 0.2)',
+//                 'rgba(75, 192, 192, 0.2)',
+//                 'rgba(153, 102, 255, 0.2)',
+//                 'rgba(255, 159, 64, 0.2)'
+//             ],
+//             borderColor: [
+//                 'rgba(255, 99, 132, 1)',
+//                 'rgba(54, 162, 235, 1)',
+//                 'rgba(255, 206, 86, 1)',
+//                 'rgba(75, 192, 192, 1)',
+//                 'rgba(153, 102, 255, 1)',
+//                 'rgba(255, 159, 64, 1)'
+//             ],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             y: {
+//                 beginAtZero: true
+//             }
+//         }
+//     }
+// });
 
-
-var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_deaths_per_million"];
-    function graf_lime() {
-        let per = ["week","month",""];
-        var period = +document.getElementById("period").value;  
-        var filter = +document.getElementById("filter_t").value;
-        var query = new XMLHttpRequest();
-        console.log(typeof(period)); 
-        if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/line/', true);
-            console.log("adfdsaffdsf");
-            filter =1;
-        }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/line/'+per[period-1], true);
-        }        
-        query.send();
-        query.onreadystatechange = function() {
-        if (query.readyState == 4 && query.status == 200) {
-            var datos = JSON.parse(query.responseText);
-            datos.splice(4,1);
-            datos.splice(7,1);
-            graficar_line(+filter, datos); 
-        }
-    }
-
-       function graficar_line(filter, datos) { 
-
-                var margin = {top: 20, right: 20, bottom: 80, left: 80},
-                width = 750 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
-      
-      
-                var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
-                var y = d3.scaleLinear().range([height,0]);
-      
-                var color = d3.scaleLinear()
-                  .domain([0,60])
-                  .range(["red", "blue"]);
-
-      
-                var xAxis = d3.axisBottom(x)
-                    .ticks(12);
-      
-                var yAxis = d3.axisLeft(y)
-                    .ticks(10);
-                var svg = d3.select(".ex__line__chart")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate("+margin.left+","+margin.top+")");
-                datos.forEach(function(d){
-                  
-                    console.log(d[fil[filter]]);
-                    d.value = d[fil[filter]];
-
-                }); 
-                x.domain(datos.map(function(d){return d.location;}));
-                y.domain([0, d3.max(datos,function(d){return d.value;})]);
-        
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0, " +height+")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-90)");
-  
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-            
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", -70)
-                    .attr("x",-height/2)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(fil[filter]);
-
-
-                var line = d3.line()
-                    .x(function(d){return x(d.location)})
-                    .y(function(d){return y(d.value)})
-console.log(line);
-                svg.append("g")
-                    .data(datos)
-                    .attr("class","line")
-                    .attr("fill","none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-linejoin","round")
-                    .attr("stroke-linecap","round")
-                    .attr("stroke-width", 1.5)
-                    .attr("d",line)
-
-
-
+(() => {
+// Constantes
+const NEW_C = 'new_cases', NEW_CPM = 'new_cases_per_million', NEW_D = 'new_deaths', 
+    NEW_DPM = 'new_deaths_per_million';
+    
+const PATH = '/api/line/';
+const urlParams = {
+    period: 365,
+    group: 'month',
+    countries: ['COL', 'USA'],
+};
+const config = {
+    type: 'line',
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+      },
+      scales: {
+            y: {
+                beginAtZero: true,
             }
         }
-//graf_line();
+    },
+  };
+
+// ...
+let data = [];
+let variable = NEW_C;
+
+// ...
+const $canvas = document.querySelector('.ex__line__area__chart');
+const width = 600, height = 340;
+$canvas.setAttribute('width', `${width}px`);
+$canvas.setAttribute('height', `${height}px`);
+
+// FUNCIONES
+function getData() {
+    
+    data = [];
+
+    fetch(PATH + parseUrlParams())
+        .then(response => response.json())
+        .then(json => {
+            
+            labels = [];
+            max = 0;
+            json[0].data.forEach(elem => {
+                labels.push(elem.month + '/' + elem.year);
+            })
+
+            json.forEach(country => {
+                const {Ccode: iso3, location: name, population, data: _data} = country;
+                
+                data.push({
+                    iso3,
+                    name,
+                    population,
+                    data: _data.map(elem => {
+                        if(elem[variable] > max) max = elem[variable];
+                        return elem[variable];
+                    })
+                });
+            });
+            console.log(labels);
+            console.log(data);
+
+            config.data = {
+                labels: labels,
+                datasets: data.map(country => ({
+                    label: country.name,
+                    data: country.data
+                }))
+                
+            };
+            config.options.scales.y.max = max;
+            console.log(config);
+
+            new Chart($canvas.getContext('2d'), config);
+        });
+}
+getData();
+
+function parseUrlParams() {
+    const {period, group, countries} = urlParams;
+    let parsed = '?';
+    
+    if(period !== undefined) parsed += `&period=${period}`;
+    if(group !== undefined) parsed += `&group=${group}`;
+    countries.forEach(country => parsed += `&country=${country}`)
+
+    return parsed;
+}
+
+// const urlSearchParams = new URLSearchParams(window.location.search);
+// const params = Object.fromEntries(urlSearchParams.entries());
+// console.log(urlSearchParams);
+// console.log(params);
+
+
+
+//   const DATA_COUNT = 7;
+//   const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+  
+//   const labels = Utils.months({count: 7});
+//   const data = {
+//     labels: labels,
+//     datasets: [
+//       {
+//         label: 'Dataset 1',
+//         data: Utils.numbers(NUMBER_CFG),
+//         borderColor: Utils.CHART_COLORS.red,
+//         backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+//       },
+//       {
+//         label: 'Dataset 2',
+//         data: Utils.numbers(NUMBER_CFG),
+//         borderColor: Utils.CHART_COLORS.blue,
+//         backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+//       }
+//     ]
+//   };
+
+//   const actions = [
+//     {
+//       name: 'Randomize',
+//       handler(chart) {
+//         chart.data.datasets.forEach(dataset => {
+//           dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
+//         });
+//         chart.update();
+//       }
+//     },
+//     {
+//       name: 'Add Dataset',
+//       handler(chart) {
+//         const data = chart.data;
+//         const dsColor = Utils.namedColor(chart.data.datasets.length);
+//         const newDataset = {
+//           label: 'Dataset ' + (data.datasets.length + 1),
+//           backgroundColor: Utils.transparentize(dsColor, 0.5),
+//           borderColor: dsColor,
+//           data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
+//         };
+//         chart.data.datasets.push(newDataset);
+//         chart.update();
+//       }
+//     },
+//     {
+//       name: 'Add Data',
+//       handler(chart) {
+//         const data = chart.data;
+//         if (data.datasets.length > 0) {
+//           data.labels = Utils.months({count: data.labels.length + 1});
+  
+//           for (var index = 0; index < data.datasets.length; ++index) {
+//             data.datasets[index].data.push(Utils.rand(-100, 100));
+//           }
+  
+//           chart.update();
+//         }
+//       }
+//     },
+//     {
+//       name: 'Remove Dataset',
+//       handler(chart) {
+//         chart.data.datasets.pop();
+//         chart.update();
+//       }
+//     },
+//     {
+//       name: 'Remove Data',
+//       handler(chart) {
+//         chart.data.labels.splice(-1, 1); // remove the label first
+  
+//         chart.data.datasets.forEach(dataset => {
+//           dataset.data.pop();
+//         });
+  
+//         chart.update();
+//       }
+//     }
+//   ];
+
+})();

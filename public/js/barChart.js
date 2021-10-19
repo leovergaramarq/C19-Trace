@@ -7,11 +7,11 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
         var query = new XMLHttpRequest();
         console.log(typeof(period)); 
         if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/', true);
+            query.open('GET', '/api/continental/', true);
             console.log("adfdsaffdsf");
             filter =1;
         }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/'+per[period-1], true);
+            query.open('GET', '/api/continental/'+per[period-1], true);
         }        
         query.send();
         query.onreadystatechange = function() {
@@ -27,7 +27,7 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
 
                 var margin = {top: 20, right: 20, bottom: 80, left: 80},
                 width = 850 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                height = 550 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
@@ -108,11 +108,11 @@ graf();
         var query = new XMLHttpRequest();
         console.log(typeof(period)); 
         if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/', true);
+            query.open('GET', '/api/continental/', true);
             console.log("adfdsaffdsf");
             filter =1;
         }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/'+per[period-1], true);
+            query.open('GET', '/api/continental/'+per[period-1], true);
         }        
         query.send();
         query.onreadystatechange = function() {
@@ -153,7 +153,7 @@ graf();
             function(update) {               
                 var margin = {top: 20, right: 20, bottom: 80, left: 80},
                 width = 850 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                height = 550 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
