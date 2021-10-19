@@ -4487,6 +4487,28 @@ li {
     border: 1px #4442 groove;
     width: 90%;
     text-align: center; }
+    .ex__map__area [visible="false"] {
+      visibility: hidden; }
+    .ex__map__area__popover {
+      z-index: 10;
+      position: absolute;
+      padding: 10px 14px 6px 14px;
+      border: groove 1px #2222;
+      border-radius: 4px;
+      background-color: #eeec;
+      text-align: left;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; }
+      .ex__map__area__popover h1, .ex__map__area__popover .h1 {
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 0; }
+      .ex__map__area__popover p {
+        display: inline-block;
+        font-size: 0.8rem;
+        padding: 0; }
+      .ex__map__area__popover p:nth-child(1) {
+        color: red;
+        display: none; }
     .ex__map__area .dropdowns {
       position: absolute;
       display: flex;

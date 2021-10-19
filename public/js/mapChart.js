@@ -2,7 +2,6 @@
 import dataGeoJson from './GeoChart.world.geo.json' assert {type: 'json'};
 
 (() => {
-
 // Constantes
 const WEEK = 'week', MONTH = 'month', HISTORIC = '';
 const TOTAL_C = 'total_cases', TOTAL_CPM = 'total_cases_per_million', TOTAL_D = 'total_deaths', 
@@ -13,8 +12,10 @@ const PATH = '/api/global/';
 let data = [];
 let period = WEEK, variable = TOTAL_CPM;
 let colorScale;
+const $popover = document.querySelector('.ex__map__area__popover');
 
-// Eventos
+// EVENTOS
+// Dropdowns, popover
 (() => {
     const variables = {
         'Total cases': TOTAL_C,
@@ -22,10 +23,14 @@ let colorScale;
         'Total deaths': TOTAL_D,
         'Total deaths per million': TOTAL_DPM,
     }
+
     const vKeys = Object.keys(variables);
     const $dropdownVar = document.querySelector('.dropdown-var');
     const $aVar = $dropdownVar.firstElementChild;
-    const updateDropdownVar = txt => $aVar.textContent = txt;
+
+    // let xd = vKeys.find(k => variables[k] === variable);
+    // console.log(xd);
+    $popover.querySelectorAll('p')[0].innerText = vKeys.find(k => variables[k] === variable) + ':';
 
     let i = 0;
     for(let child of $dropdownVar.querySelector('ul').children) {
@@ -33,8 +38,10 @@ let colorScale;
         if(variable === variables[txt]) $aVar.textContent = txt;
 
         child.textContent = txt;
-        child.addEventListener('click', e => {
-            updateDropdownVar(txt);
+        child.addEventListener('click', () => {
+            $aVar.textContent = txt;
+            console.log();
+            $popover.querySelectorAll('p')[0].innerText = txt + ':';
             variable !== variables[txt] && getData(period, variables[txt]);
         })
         i++;
@@ -48,7 +55,6 @@ let colorScale;
     const pKeys = Object.keys(periods);
     const $dropdownPer = document.querySelector('.dropdown-per');
     const $aPer = $dropdownPer.firstElementChild;
-    const updateDropdownPer = txt => $aPer.textContent = txt;
 
     i = 0;
     for(let child of $dropdownPer.querySelector('ul').children) {
@@ -56,34 +62,55 @@ let colorScale;
         if(period === periods[txt]) $aPer.textContent = txt;
         
         child.textContent = txt;
-        child.addEventListener('click', e => {
-            updateDropdownPer(txt);
+        child.addEventListener('click', () => {
+            $aPer.textContent = txt;
             period !== periods[txt] && getData(periods[txt], variable);
         })
         i++;
     }
 })();
 
+// CountryHover
+function onCountryHover(e, country) {
+    $popover.style.setProperty('left', 0)
+    $popover.style.setProperty('top', 0)
+    $popover.style.setProperty('transform', `translate(${e.pageX}px, ${e.pageY}px)`)
+    $popover.querySelector('h1').innerText = country.name;
+    $popover.querySelectorAll('p')[1].innerText = country[variable] || '0';
+    $popover.setAttribute('visible', true);
+}
+
+// CountryHovern't
+function onCountryUnhover() {
+    $popover.setAttribute('visible', false);
+    $popover.querySelector('h1').innerText = '';
+    $popover.querySelectorAll('p')[1].innerText = '';
+}
+
 // FUNCIONES
 // Data
 function getData(_period = period, _variable = variable) {
+    
     if(period !== _period) period = _period;
     if(variable !== _variable) variable = _variable;
-    variable = _variable;
     
+    data = [];
+
     fetch('/api/global/'+period)
         .then(response => response.json())
         .then(json => {
             json.forEach(country => {
-                const {Ccode: iso3, population} = country;
+                const {Ccode: iso3, location: name, population} = country;
                 data.push({
                     iso3,
+                    name,
                     population,
                     [variable]: country[variable]
                 });
             });
             initColorScale();
             updateCountries();
+            
         });
 }
 getData();
@@ -92,7 +119,7 @@ getData();
 function initColorScale() {
     const minProp = min(data, country => country[variable] < 0 ? 0 : country[variable]);
     const maxProp = max(data, country => country[variable]);
-    console.log(minProp, maxProp);
+    
     colorScale = scaleLinear()
         .domain([minProp, maxProp])
         .range(['#ccc', 'red']);
@@ -121,6 +148,8 @@ function updateCountries() {
             updateProjection(dataGeoJson.features[e.target.getAttribute('featureIndex')]);
             updateCountries();
         })
+        .on('mouseover', (e, country) => onCountryHover(e, country))
+        .on('mouseleave', () => onCountryUnhover())
         .attr('class', 'country')
         .transition()
         .duration(1000)
@@ -129,6 +158,10 @@ function updateCountries() {
         .attr('d', country => pathGenerator(getCountryFeature(country)))
         .attr('stroke', 'black')
         .attr('stroke-opacity', '0.1')
+        .attr('data-bs-toggle', 'popover')
+        .attr('data-bs-trigger', 'hover')
+        .attr('data-bs-content', 'xd')
+        
 }
 
 // Funciones D3
