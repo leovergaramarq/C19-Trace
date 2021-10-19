@@ -8,11 +8,11 @@ var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total
         var query = new XMLHttpRequest();
         console.log(typeof(period)); 
         if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/', true);
+            query.open('GET', '/api/continental/', true);
             console.log("adfdsaffdsf");
             filter =1;
         }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/'+per[period-1], true);
+            query.open('GET', '/api/continental/'+per[period-1], true);
         }        
         query.send();
         query.onreadystatechange = function() {
@@ -109,11 +109,11 @@ graf();
         var query = new XMLHttpRequest();
         console.log(typeof(period)); 
         if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/', true);
+            query.open('GET', '/api/continental/', true);
             console.log("adfdsaffdsf");
             filter =1;
         }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/continental/'+per[period-1], true);
+            query.open('GET', '/api/continental/'+per[period-1], true);
         }        
         query.send();
         query.onreadystatechange = function() {

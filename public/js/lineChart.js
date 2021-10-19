@@ -1,105 +1,68 @@
-
-
-var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_deaths_per_million"];
-    function graf_lime() {
-        let per = ["week","month",""];
-        var period = +document.getElementById("period").value;  
-        var filter = +document.getElementById("filter_t").value;
-        var query = new XMLHttpRequest();
+var circle = document.getElementById("myCircleGraph").getContext("2d");
+var query = new XMLHttpRequest();
         console.log(typeof(period)); 
-        if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', 'http://127.0.0.1:3000/api/line/', true);
-            console.log("adfdsaffdsf");
-            filter =1;
-        }else{
-            query.open('GET', 'http://127.0.0.1:3000/api/line/'+per[period-1], true);
-        }        
+        query.open('GET', 'http://127.0.0.1:3000/api/continental/', true);
         query.send();
         query.onreadystatechange = function() {
         if (query.readyState == 4 && query.status == 200) {
             var datos = JSON.parse(query.responseText);
-            datos.splice(4,1);
-            datos.splice(7,1);
-            graficar_line(+filter, datos); 
+            var myCircleGraph = new Chart(circle, {
+    
+  type: "pie",
+  data: {
+    labels: [datos[0].location, datos[1].location, datos[2].location, datos[3].location, datos[4].location],
+    datasets: [
+      {
+        label: "Compras",
+        data: [datos[0].total_deaths, datos[1].total_deaths, datos[2].total_deaths, datos[3].total_deaths, datos[4].total_deaths],
+        borderWidth: 0,
+        backgroundColor: [
+          "rgba(255, 99, 132, .6)",
+          "rgba(54, 162, 235, .6)",
+          "rgba(255, 206, 86, .6)",
+          "rgba(75, 192, 192, .6)",
+          "rgba(153, 102, 255, .6)"
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, .5)",
+          "rgba(54, 162, 235, .5)",
+          "rgba(255, 206, 86, .5)",
+          "rgba(75, 192, 192, .5)",
+          "rgba(153, 102, 255, .5)"
+        ],
+        lineTension: 0.1
+      }
+    ]
+  },
+  options: {
+    legend: {
+      display: true,
+      position: "top",
+      labels: {
+        boxWidth: 10,
+        fontColor: "#444444"
+      }
+    },
+   plugins: {
+     datalabels: {
+       formatter: (value, ctx) => {
+
+         let sum = 0;
+         let dataArr = ctx.chart.data.datasets[0].data;
+         dataArr.map(data => {
+           sum += data;
+         });
+         let percentage = (value * 100 / sum).toFixed(2) + "%";
+         return percentage;
+
+
+       },
+       color: '#fff',
+     }
+   }
+  }
+});
         }
     }
 
-       function graficar_line(filter, datos) { 
 
-                var margin = {top: 20, right: 20, bottom: 80, left: 80},
-                width = 750 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
-      
-      
-                var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
-                var y = d3.scaleLinear().range([height,0]);
-      
-                var color = d3.scaleLinear()
-                  .domain([0,60])
-                  .range(["red", "blue"]);
-
-      
-                var xAxis = d3.axisBottom(x)
-                    .ticks(12);
-      
-                var yAxis = d3.axisLeft(y)
-                    .ticks(10);
-                var svg = d3.select(".ex__line__chart")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate("+margin.left+","+margin.top+")");
-                datos.forEach(function(d){
-                  
-                    console.log(d[fil[filter]]);
-                    d.value = d[fil[filter]];
-
-                }); 
-                x.domain(datos.map(function(d){return d.location;}));
-                y.domain([0, d3.max(datos,function(d){return d.value;})]);
-        
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0, " +height+")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-90)");
-  
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-            
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", -70)
-                    .attr("x",-height/2)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(fil[filter]);
-
-
-                var line = d3.line()
-                    .x(function(d){return x(d.location)})
-                    .y(function(d){return y(d.value)})
-console.log(line);
-                svg.append("g")
-                    .data(datos)
-                    .attr("class","line")
-                    .attr("fill","none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-linejoin","round")
-                    .attr("stroke-linecap","round")
-                    .attr("stroke-width", 1.5)
-                    .attr("d",line)
-
-
-
-            }
-        }
-//graf_line();
