@@ -14,11 +14,12 @@
         }
 
         &__area {
+            background-color: #fff;
             margin: auto;
             border: 1px #4442 groove;
             width: 90%;
             text-align: center;
-
+            box-shadow: 12px 12px 2px 1px rgba(169, 169, 169, .2);
             [visible="false"] {
                 visibility: hidden;
             }
@@ -99,7 +100,8 @@
             border: 1px #4442 groove;
             width: 90%;
             text-align: center;
-
+            background-color: #fff;
+            box-shadow: 12px 12px 2px 1px rgba(169, 169, 169, .2);
             &__form {
                 position: absolute;
                 display: flex;
@@ -123,7 +125,7 @@
             
             text {
                 font-family: helvetica;
-                font-size: 10px;
+                font-size: 14px;
                 text-anchor: middle;
             }
         }
