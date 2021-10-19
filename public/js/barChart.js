@@ -26,16 +26,12 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
        function graficar(filter, datos) { 
 
                 var margin = {top: 20, right: 20, bottom: 80, left: 80},
-                width = 750 - margin.left - margin.right,
+                width = 850 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
                 var y = d3.scaleLinear().range([height,0]);
-      
-                var color = d3.scaleLinear()
-                  .domain([0,60])
-                  .range(["red", "blue"]);
 
       
                 var xAxis = d3.axisBottom(x)
@@ -57,7 +53,10 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
                 }); 
                 x.domain(datos.map(function(d){return d.location;}));
                 y.domain([0, d3.max(datos,function(d){return d.value;})]);
-        
+                var color = d3.scaleSequential()
+                .domain([0, d3.max(datos,function(d){return d.value;})])
+                .interpolator(d3.interpolateSpectral);
+
                 svg.append("g")
                     .attr("class", "x axis")
                     .attr("transform", "translate(0, " +height+")")
@@ -90,7 +89,7 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
                         .attr("width", x.bandwidth())
                         .attr("y", function(d) { return y(d.value); })
                         .attr("height", function(d){return height - y(d.value);})
-                        .style("fill", "steelblue");
+                        .style("fill", function(d) { return color(d.value); });
 
 
             }
@@ -133,6 +132,17 @@ graf();
                 }
             )
             d3.select('.ex__bar__chart')
+            .selectAll('rect')
+            .join(
+                function(enter) {
+                    return enter.append('rect')
+                        .style('opacity', 0);
+                },
+                function(update) {
+                    return update.style('opacity',0)
+                }
+            )
+            d3.select('.ex__bar__chart')
             .selectAll('g')
             .data(datos)
             .join(
@@ -142,16 +152,13 @@ graf();
             },
             function(update) {               
                 var margin = {top: 20, right: 20, bottom: 80, left: 80},
-                width = 750 - margin.left - margin.right,
+                width = 850 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
                 var y = d3.scaleLinear().range([height,0]);
       
-                var color = d3.scaleLinear()
-                  .domain([0,60])
-                  .range(["red", "blue"]);
 
       
                 var xAxis = d3.axisBottom(x)
@@ -174,6 +181,10 @@ graf();
                 x.domain(datos.map(function(d){return d.location;}));
                 y.domain([0, d3.max(datos,function(d){return d.value;})]);
         
+                var color = d3.scaleSequential()
+                .domain([0, d3.max(datos,function(d){return d.value;})])
+                .interpolator(d3.interpolateSpectral);
+               
                 svg.append("g")
                     .attr("class", "x axis")
                     .attr("transform", "translate(0, " +height+")")
@@ -206,7 +217,7 @@ graf();
                         .attr("width", x.bandwidth())
                         .attr("y", function(d) { return y(d.value); })
                         .attr("height", function(d){return height - y(d.value);})
-                        .style("fill", "steelblue");
+                        .style("fill", function(d) { return color(d.value); });
 
                 return svg;
                     

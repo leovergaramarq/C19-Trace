@@ -1,33 +1,90 @@
 .ex {
-    padding: 20px;
-    height: 2000px;
+    padding: 20px 80px;
+    height: 1200px;
+    text-align: center;
+
+    section {
+        margin-bottom: 60px;
+    }
     
     &__map {
 
-        &__chart {
-            width: 800px;
-            padding: 10px;
-            border: 1px black groove;
-            border-radius: 5px;;
-            background: rgb(165, 189, 199);
+        h2 {
+            text-align: left;
+        }
 
-            .country {
-                stroke: black;
-                stroke-opacity: 0.1;
+        &__area {
+            margin: auto;
+            border: 1px #4442 groove;
+            width: 90%;
+            text-align: center;
+
+            .dropdowns {
+                position: absolute;
+                display: flex;
+                flex-direction: row;
+                transform: translate(20px, 20px);
+
+                .dropdown {
+                    padding: 0 10px;
+                    a {
+                        font-size: $xs-size;
+                    }
+                    li {
+                        font-size: $xs-size;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+
+            &__chart {
+                width: 800px;
+                padding: 10px;
+    
+                .country {
+                    stroke: black;
+                    stroke-opacity: 0.1;
+    
+                    &:hover {
+                        stroke-opacity: 0.3;
+                    }
+                }
             }
         }
+        
     }
 
     &__bar {
 
-        &__chart {
-            width: 800px;
-            height: 600px;
-            border: 10px solid #aaa;
-            
-            rect {
-                fill: steelblue;
+        &__area {
+            margin: auto;
+            border: 1px #4442 groove;
+            width: 90%;
+            text-align: center;
+
+            &__form {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                transform: translate(20px, 20px);
+                width: 200px;
+
+                &__form-group {
+                    width: 100%;
+                    margin: 10px;
+                }
             }
+
+        }
+
+        &__chart {
+            width: 850px;
+            height: 600px;
+            border: 0px solid #aaa;
+            
             
             text {
                 font-family: helvetica;
@@ -59,7 +116,7 @@
     &__line {
 
         &__chart {
-            width: 800px;
+            width: 950px;
             height: 600px;
             border: 10px solid #aaa;
             
