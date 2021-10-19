@@ -2,7 +2,7 @@
 function isInt(number){
     try{
         parseInt(number);
-        return true;
+        return number !==NaN;
     }catch(err){
         return false;
     }
