@@ -112,6 +112,10 @@ router.get('/line', async (req, res, next)=>{
     if(typeof(country) === 'number' || isInt(country)) {
         // add a match stage to the aggregation pipline
         country = parseInt(country);
+
+        pipline.push({
+            $match: {continent: {$exists: true}}
+        });
         pipline.push({
             $sample: { size: parseInt(country) }
         });
