@@ -109,23 +109,18 @@ router.get('/line', async (req, res, next)=>{
     // HANDLING QUERY
 
     // if we get a country
-    if(typeof(country) === 'number' || isInt(country)) {
+    if ( typeof(country)==='string' && country !== 'all') {
         // add a match stage to the aggregation pipline
-        country = parseInt(country);
-
         pipline.push({
-            $match: {continent: {$exists: true}}
-        });
-        pipline.push({
-            $sample: { size: parseInt(country) }
+            $match: {Ccode: country}
         });
     }else if(country.constructor === Array){// If we get a listo of countries
         pipline.push({
             $match: {Ccode: {$in: country}}
         });
-    }else if ( typeof(country)==='string' && country !== 'all') {
+    }else if(typeof(country) === 'number'){
         pipline.push({
-            $match: {Ccode: country}
+            $sample: { size: parseInt(country) }
         });
     }
     else{

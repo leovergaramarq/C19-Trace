@@ -67,9 +67,9 @@ let variable = NEW_C;
 
 // ...
 const $canvas = document.querySelector('.ex__line__area__chart');
-const width = 600, height = 340;
-$canvas.setAttribute('width', `${width}px`);
-$canvas.setAttribute('height', `${height}px`);
+const width = 600, height = 400;
+// $canvas.setAttribute('width', `${width}px`);
+// $canvas.setAttribute('height', `${height}px`);
 
 // FUNCIONES
 function getData() {

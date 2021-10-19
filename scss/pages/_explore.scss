@@ -1,8 +1,19 @@
 
 .ex {
-    padding: 20px 80px;
-    height: 1600px;
+    // position: absolute;
+    margin-top: 60px;
+    padding: 0 80px 80px 80px;
+    // padding: 100px 80px 20px 80px;
+    // height: 2000px;
     text-align: center;
+
+    h1 {
+        padding: 10px 0;
+    }
+
+    h2 {
+        text-align: left;
+    }
 
     section {
         margin-bottom: 60px;
@@ -84,48 +95,77 @@
     }
 
     &__bar {
+        .grid-chart {
+            display: grid;
+            grid-template-columns: 800px 1fr;
+            justify-items: start;
+        }
 
         &__area {
-            margin: auto;
+            // margin: auto;
+            // width: 800px;
+            // text-align: center;
             border: 1px #4442 groove;
-            width: 90%;
-            text-align: center;
             background-color: #fff;
-            box-shadow: 12px 12px 2px 1px rgba(169, 169, 169, .2);
+            box-shadow: 6px 6px 2px 1px rgba(169, 169, 169, .2);
+            
             &__form {
                 position: absolute;
                 display: flex;
                 flex-direction: column;
-                transform: translate(20px, 20px);
-                width: 200px;
-
+                transform: translate(800px - 180px - 20px, 20px);
+                width: 180px;
+                
                 &__form-group {
                     width: 100%;
                     margin: 10px;
+                    
+                    select, option, button {
+                        font-size: $xs-size;
+
+                    }
                 }
             }
-        }
 
-        &__chart {
-            width: 850px;
-            height: 550px;
-            border: 0px solid #aaa;
-            
-            text {
-                font-family: helvetica;
-                font-size: 14px;
-                text-anchor: middle;
+            &__chart {
+                width: 800px;
+                height: 440px;
+                padding: 20px;
+                // border: 0px solid #aaa;
+                
+                text {
+                    font-family: helvetica;
+                    font-size: 14px;
+                    text-anchor: middle;
+                }
             }
+
+        }
+        
+        &__info {
+            // padding: 10px 0 10px 20px;
+            padding-left: 20px;
+            text-align: justify;
         }
     }
 
     &__line {
 
-        &__area {
+        .grid-chart {
+            display: grid;
+            grid-template-columns: 1fr 800px;
+            // justify-items: end;
+        }
 
-            border: 1px black groove;
-            width: min-content;
-            height: min-content;
+        &__area {
+            display: flex;
+            justify-content: end;
+            width: 800px;
+            height: 440px;
+            padding: 20px;
+            background: #fff;
+            border: 1px #4442 groove;
+            
             // padding-top: 40px;
             // &__chart {
             //     width: 950px;
@@ -142,11 +182,20 @@
             //         text-anchor: middle;
             //     }
             // }
+
+            &__chart {
+                max-width: 580px;
+                max-height: 400px;
+                margin: 0;
+                text-align: right;
+                // border: 0px solid #aaa;
+            }
         }
         
+        &__info {
+            padding-right: 20px;
+            text-align: justify;
+        }
     }
 
-    h2 {
-        text-align: left;
-    }
 }

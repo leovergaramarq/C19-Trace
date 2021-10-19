@@ -9,7 +9,6 @@ var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total
         console.log(typeof(period)); 
         if(isNaN(period) || isNaN(filter)) {
             query.open('GET', '/api/continental/', true);
-            console.log("adfdsaffdsf");
             filter =1;
         }else{
             query.open('GET', '/api/continental/'+per[period-1], true);
@@ -27,8 +26,8 @@ var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total
        function graficar(filter, datos) { 
 
                 var margin = {top: 20, right: 20, bottom: 100, left: 95},
-                width = 850 - margin.left - margin.right,
-                height =550 - margin.top - margin.bottom;
+                width = 590 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
@@ -40,7 +39,7 @@ var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total
       
                 var yAxis = d3.axisLeft(y)
                     .ticks(10);
-                var svg = d3.select(".ex__bar__chart")
+                var svg = d3.select(".ex__bar__area__chart")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
@@ -121,7 +120,7 @@ graf();
             var datos = JSON.parse(query.responseText);
             datos.splice(4,1);
             datos.splice(7,1);
-            d3.select('.ex__bar__chart')
+            d3.select('.ex__bar__area__chart')
             .selectAll('text')
             .join(
                 function(enter) {
@@ -132,7 +131,7 @@ graf();
                     return update.style('opacity',0)
                 }
             )
-            d3.select('.ex__bar__chart')
+            d3.select('.ex__bar__area__chart')
             .selectAll('rect')
             .join(
                 function(enter) {
@@ -143,7 +142,7 @@ graf();
                     return update.style('opacity',0)
                 }
             )
-            d3.select('.ex__bar__chart')
+            d3.select('.ex__bar__area__chart')
             .selectAll('g')
             .data(datos)
             .join(
@@ -153,8 +152,8 @@ graf();
             },
             function(update) {               
                 var margin = {top: 20, right: 20, bottom: 100, left: 95},
-                width = 850 - margin.left - margin.right,
-                height = 550 - margin.top - margin.bottom;
+                width = 590 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
@@ -167,7 +166,7 @@ graf();
       
                 var yAxis = d3.axisLeft(y)
                     .ticks(10);
-                var svg = d3.select(".ex__bar__chart")
+                var svg = d3.select(".ex__bar__area__chart")
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
