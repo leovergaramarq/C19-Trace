@@ -1,5 +1,6 @@
 
 var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_deaths_per_million"];
+var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total Deaths per Million"];
     function graf() {
         let per = ["week","month",""];
         var period = +document.getElementById("period").value;  
@@ -25,9 +26,9 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
 
        function graficar(filter, datos) { 
 
-                var margin = {top: 20, right: 20, bottom: 80, left: 80},
+                var margin = {top: 20, right: 20, bottom: 100, left: 95},
                 width = 850 - margin.left - margin.right,
-                height = 550 - margin.top - margin.bottom;
+                height =550 - margin.top - margin.bottom;
       
       
                 var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
@@ -64,8 +65,8 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
                     .selectAll("text")
                     .style("text-anchor", "end")
                     .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-90)");
+                    .attr("dy", ".55em")
+                    .attr("transform", "rotate(-50)")
   
                 svg.append("g")
                     .attr("class", "y axis")
@@ -75,11 +76,11 @@ var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_dea
             
                 svg.append("text")
                     .attr("transform", "rotate(-90)")
-                    .attr("y", -70)
+                    .attr("y", -95)
                     .attr("x",-height/2)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
-                    .text(fil[filter]);
+                    .text(fil_imp[filter]);
         
                 svg.selectAll("rect")
                     .data(datos)
@@ -151,7 +152,7 @@ graf();
                 .style('opacity', 0.25);
             },
             function(update) {               
-                var margin = {top: 20, right: 20, bottom: 80, left: 80},
+                var margin = {top: 20, right: 20, bottom: 100, left: 95},
                 width = 850 - margin.left - margin.right,
                 height = 550 - margin.top - margin.bottom;
       
@@ -192,8 +193,8 @@ graf();
                     .selectAll("text")
                     .style("text-anchor", "end")
                     .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-90)");
+                    .attr("dy", ".55em")
+                    .attr("transform", "rotate(-50)");
   
                 svg.append("g")
                     .attr("class", "y axis")
@@ -203,11 +204,11 @@ graf();
             
                 svg.append("text")
                     .attr("transform", "rotate(-90)")
-                    .attr("y", -70)
+                    .attr("y", -95)
                     .attr("x",-height/2)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
-                    .text(fil[filter]);
+                    .text(fil_imp[filter]);
         
                 svg.selectAll("rect")
                     .data(datos)

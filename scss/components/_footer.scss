@@ -1,8 +1,8 @@
 footer {
     // position: absolute;
     width: 100%;
-    display: none;
-    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     justify-items: center;
     padding: 20px;
     background-color: $gray-900;
