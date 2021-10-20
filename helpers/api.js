@@ -95,7 +95,7 @@ router.get('/line', async (req, res, next)=>{
     
     let {period, group, country} = req.body==={}? req.body: require('url').parse(req.url, true).query;
 
-    if(typeof(period)!=='number' && isInt(period)){
+    if(isInt(period)){
         period = parseInt(period);
     }
     
@@ -109,20 +109,29 @@ router.get('/line', async (req, res, next)=>{
     // HANDLING QUERY
 
     // if we get a country
-    if ( typeof(country)==='string' && country !== 'all') {
+    //verifying if it's a number 
+    if(typeof(country) === 'number' || isInt(country)) {// isInt has been repared
         // add a match stage to the aggregation pipline
+        country = parseInt(country);
+
         pipline.push({
-            $match: {Ccode: country}
+            $match: {continent: {$exists: true}}
         });
+        pipline.push({
+            $sample: { size: parseInt(country) }
+        });
+    // if we get an Array
     }else if(country.constructor === Array){// If we get a listo of countries
         pipline.push({
             $match: {Ccode: {$in: country}}
         });
-    }else if(typeof(country) === 'number'){
+    
+    // Also if we get a Country ISO3 code
+    }else if ( typeof(country)==='string' && country !== 'all') {
         pipline.push({
-            $sample: { size: parseInt(country) }
+            $match: {Ccode: country}
         });
-    }
+    } //ALSO
     else{
         pipline.push({
             $match: {}
