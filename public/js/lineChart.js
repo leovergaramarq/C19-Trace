@@ -34,10 +34,12 @@
 // });
 
 (() => {
-// Constantes
+// Constantes / Variables
 const NEW_C = 'new_cases', NEW_CPM = 'new_cases_per_million', NEW_D = 'new_deaths', 
     NEW_DPM = 'new_deaths_per_million';
 const DAY = 'day', WEEK = 'week', MONTH = 'month';
+
+let variable = NEW_C;
 
 const $canvas = document.querySelector('.ex__line__area__chart');
 const PATH = '/api/line/';
@@ -78,9 +80,6 @@ const colors = {};
     colors.backgroundColor = baseColors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.2)`);
     colors.borderColor = baseColors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`);
 })();
-
-// ...
-let variable = NEW_C;
 
 // FUNCIONES
 function getData() {
