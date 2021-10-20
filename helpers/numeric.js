@@ -1,8 +1,8 @@
 
 function isInt(number){
     try{
-        parseInt(number);
-        return number !==NaN;
+        number = parseInt(number);
+        return !isNaN(number);
     }catch(err){
         return false;
     }
