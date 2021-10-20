@@ -4583,8 +4583,9 @@ li {
     width: 800px;
     height: 440px;
     padding: 20px;
+    border: 1px #4442 groove;
     background: #fff;
-    border: 1px #4442 groove; }
+    box-shadow: 6px 6px 2px 1px rgba(169, 169, 169, 0.2); }
     .ex__line__area__chart {
       max-width: 580px;
       max-height: 400px;

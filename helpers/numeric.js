@@ -1,4 +1,3 @@
-
 function isInt(number){
     try{
         number = parseInt(number);
