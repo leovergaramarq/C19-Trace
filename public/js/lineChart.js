@@ -34,6 +34,8 @@
 // });
 
 (() => {
+
+let chart = null;
 // Constantes / Variables
 const NEW_C = 'new_cases', NEW_CPM = 'new_cases_per_million', NEW_D = 'new_deaths', 
     NEW_DPM = 'new_deaths_per_million';
@@ -79,6 +81,81 @@ const colors = {};
     ];
     colors.backgroundColor = baseColors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.2)`);
     colors.borderColor = baseColors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`);
+})();
+
+// Eventos
+(() => {
+    document.querySelector('.ex__line__area__form').addEventListener('submit', function(e) {
+        e.preventDefault();
+    }, false);
+
+    const tagHTML = `
+        <span class="badge badge-primary">
+            text
+            <button type="button" class="close" aria-label="Close">
+            &times;
+        </button>
+        </span>
+    `
+    const $tagArea = document.querySelector('.ex__line__area__form__badge-area');
+    const $form = document.getElementById('form-input-country');
+    const $input = $form.querySelector('input');
+    const $btn = $form.querySelector('button');
+    
+    const addTag = text => {
+        const $tag = document.createElement('div');
+        $tagArea.appendChild($tag);
+        $tag.outerHTML = tagHTML.replace('text', text);
+
+        // setTimeout(1000, () => {
+        //     const $close = $tag.lastElementChild();
+        //     console.log($close);
+        //     // const $close = document.createElement('div');
+        //     // $tag.appendChild($close);
+        //     // $close.outerHTML = closeHTML;
+        //     // console.log($tag);
+
+        // })
+    }
+    
+    fetch('/api/global/')
+        .then(response => response.json())
+        .then(json => {
+            const countries = {};
+            json.forEach(country => countries[country.location] = country.Ccode);
+            
+            urlParams.countries.forEach(country => {
+                const cKeys = Object.keys(countries);
+                countryName = cKeys.find(c => countries[c] === country);
+                addTag(countryName);
+            })
+
+            $btn.addEventListener('click', e => {
+                // console.log('asd');
+                // console.log(countries[$input.value]);
+                // const country = $input.value;
+                if(countries[$input.value]) {
+                    
+                }
+            })
+
+            const $update = document.getElementById('form-submit-linechart');
+            $update.addEventListener('click', e => {
+                const $period = document.querySelector('#form-input-period input');
+                const $group = document.querySelector('#form-input-group select');
+                
+                urlParams.period = String($period.value);
+                urlParams.group = $group.value === 1 ? DAY : $group.value === 2 ? WEEK : MONTH;
+                console.log(countries[$input.value]);
+                urlParams.countries.push(countries[$input.value])
+                addTag($input.value);
+
+                getData();
+            })
+
+        })
+
+        
 })();
 
 // FUNCIONES
@@ -128,9 +205,9 @@ function getData() {
                 }))
                 
             };
-            // console.log(config);
-
-            new Chart($canvas.getContext('2d'), config);
+            if(chart) chart.destroy();
+            chart = new Chart($canvas.getContext('2d'), config);
+            chart.update();
         });
 }
 getData();

@@ -188,8 +188,45 @@
                     }
                 }
 
+                #form-input-country {
+                    text-align: left;
+                    input {
+                        width: 75%;
+                    }
+                    button {
+                        width: 20%;
+                        height: 30px;
+                        border: none;
+                        border-radius: 2px;
+                        background-color: $gray-600;
+                        color: white;
+                    }
+                }
+
                 &__badge-area {
+                    // text-align: left;
+
+                    span {
+                        background-color: $gray-600;
+                        border-radius: 2px;
+                        width: min-content;
+                        margin-bottom: 2px;
+                        button {
+                            font-size: $s-size;
+                            background-color: inherit;
+                            border: none;
+                            
+                            color: white;
+                        }
+                    }
                     
+                }
+
+                #form-input-period {
+                    input {
+
+                        width: 100%;
+                    }
                 }
             }
             &__chart {

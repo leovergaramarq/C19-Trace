@@ -4599,6 +4599,29 @@ li {
           font-size: 0.8rem; }
         .ex__line__area__form__form-group button {
           width: 100%; }
+      .ex__line__area__form #form-input-country {
+        text-align: left; }
+        .ex__line__area__form #form-input-country input {
+          width: 75%; }
+        .ex__line__area__form #form-input-country button {
+          width: 20%;
+          height: 30px;
+          border: none;
+          border-radius: 2px;
+          background-color: #6c757d;
+          color: white; }
+      .ex__line__area__form__badge-area span {
+        background-color: #6c757d;
+        border-radius: 2px;
+        width: min-content;
+        margin-bottom: 2px; }
+        .ex__line__area__form__badge-area span button {
+          font-size: 1rem;
+          background-color: inherit;
+          border: none;
+          color: white; }
+      .ex__line__area__form #form-input-period input {
+        width: 100%; }
     .ex__line__area__chart {
       max-width: 580px;
       max-height: 400px;

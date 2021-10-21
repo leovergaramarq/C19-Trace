@@ -58,7 +58,7 @@ var AutoComplete = (function () {
 
             var config = this.loadConfiguration();
 
-            if (config.text.length >= config.minLength) {
+            if (config && config.text.length >= config.minLength) {
 
                 var objectContext = this;
 
@@ -231,7 +231,7 @@ var AutoComplete = (function () {
             }
             else
                 if (isEnter(key)) {
-                    itemSelected.click();
+                    // itemSelected.click();
                     AutoComplete.prototype.preventSuggestionListToLoad();
                     return false;
                 }
@@ -296,8 +296,10 @@ var AutoComplete = (function () {
 
 window.addEventListener('click', function (event) {
     var dropdowns = document.querySelectorAll('.autocomplete.dropdown');
-
+    
     for (var i = 0; i < dropdowns.length; i++) {
         dropdowns[i].parentNode.removeChild(dropdowns[i]);
     }
 });
+
+

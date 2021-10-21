@@ -64,11 +64,25 @@ router.get(/^\/(global|continental)\/(month|week|history)?$/, async (req, res, n
                                             }
                                         ]
                                     },
-                                    actual_cases_per_million: {
-                                        $last: '$data.total_cases_per_million'
+                                    total_cases_per_million: {
+                                        $subtract: [
+                                            {
+                                                $last: '$data.total_cases_per_million'
+                                            },
+                                            {
+                                                $arrayElemAt: ['$data.total_cases_per_million', elem]
+                                            }
+                                        ]
                                     },
-                                    actual_deaths_per_million: {
-                                        $last: '$data.total_deaths_per_million'
+                                    total_deaths_per_million: {
+                                        $subtract: [
+                                            {
+                                                $last: '$data.total_deaths_per_million'
+                                            },
+                                            {
+                                                $arrayElemAt: ['$data.total_deaths_per_million', elem]
+                                            }
+                                        ]
                                     }
                                 }
                             ]

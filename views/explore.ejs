@@ -86,16 +86,8 @@
         </div>
         <div class="ex__line__area">
 
-            <form action="" class="ex__line__area__form">
-                <div class="ex__line__area__form__form-group">
-                    <select class="form-select" id="period" aria-label="Default select example">
-                        <option selected>Select Period</option>
-                        <option value="1">Last Day</option>
-                        <option value="2">Last Week</option>
-                        <option value="3">Last Month</option>
-                    </select>
-                </div>
-                <div class="ex__line__area__form__form-group">
+            <form class="ex__line__area__form">
+                <div class="ex__line__area__form__form-group" id="form-input-var">
                     <select class="form-select" id="filter_t" aria-label="Default select example">
                         <option selected>Select Filter</option>
                         <option value="1">Total Deaths</option>
@@ -104,14 +96,40 @@
                         <option value="4">Total Deaths per Million</option>
                     </select>
                 </div>
-                <div class="ex__line__area__form__form-group">
-                    <input id="country_1" type="text" data-autocomplete autocomplete-minlength="1" data-autocomplete-source="/api/countries"
-                    placeholder="Country" />
+
+                
+                <div class="ex__line__area__form__form-group" id="form-input-group">
+                    <select class="form-select" id="period" aria-label="Default select example">
+                        <option selected>Select Group</option>
+                        <option value="1">Day</option>
+                        <option value="2">Week</option>
+                        <option value="3">Month</option>
+                    </select>
+                </div>
+                
+                <div class="ex__line__area__form__form-group" id="form-input-period">
+                    <input type="number" placeholder="Period [1, 20]" min="1" max="20"/>
+                </div>
+
+
+                <div class="ex__line__area__form__form-group" id="form-input-country">
+                    <input 
+                        type="text" 
+                        data-autocomplete autocomplete-minlength="1" 
+                        data-autocomplete-source="/api/countries" 
+                        placeholder="Country" 
+                    />
+                    <button type="button" class="">&plus;</button>
                 </div>
                 <div class="ex__line__area__form__badge-area">
-                    
+                    <!-- <span class="badge badge-primary" style="background-color: red;">
+                        Primary
+                        <button type="button" class="close" aria-label="Close" style="border: none; background-color: inherit;">
+                            &times;
+                        </button>
+                    </span> -->
                 </div> 
-                <div class="ex__line__area__form__form-group">
+                <div class="ex__line__area__form__form-group" id="form-submit-linechart">
                     <button type="button" class="btn btn-secondary">
                         Update
                     </button>
