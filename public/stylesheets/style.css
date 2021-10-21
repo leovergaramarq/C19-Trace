@@ -4591,13 +4591,15 @@ li {
       position: absolute;
       display: flex;
       flex-direction: column;
-      transform: translate(-590px, 20px);
-      width: 160px; }
+      transform: translate(-585px, 20px);
+      width: 180px; }
       .ex__line__area__form__form-group {
         width: 100%;
         margin: 10px; }
         .ex__line__area__form__form-group select, .ex__line__area__form__form-group option, .ex__line__area__form__form-group button {
           font-size: 0.8rem; }
+        .ex__line__area__form__form-group button {
+          width: 100%; }
     .ex__line__area__chart {
       max-width: 580px;
       max-height: 400px;

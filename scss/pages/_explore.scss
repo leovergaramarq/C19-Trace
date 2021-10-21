@@ -178,28 +178,12 @@
             background: #fff;
             box-shadow: 6px 6px 2px 1px rgba(169, 169, 169, .2);
             
-            // padding-top: 40px;
-            // &__chart {
-            //     width: 950px;
-            //     height: 600px;
-            //     border: 10px solid #aaa;
-                
-            //     rect {
-            //         fill: steelblue;
-            //     }
-                
-            //     text {
-            //         font-family: helvetica;
-            //         font-size: 10px;
-            //         text-anchor: middle;
-            //     }
-            // }
             &__form {
                 position: absolute;
                 display: flex;
                 flex-direction: column;
-                transform: translate(-590px, 20px);
-                width: 160px;
+                transform: translate(-585px, 20px);
+                width: 180px;
                 
                 &__form-group {
                     width: 100%;
@@ -207,8 +191,16 @@
                     
                     select, option, button {
                         font-size: $xs-size;
-
                     }
+
+                    button {
+                        width: 100%;
+                        // transform: translateY(100px);
+                    }
+                }
+
+                &__badge-area {
+                    
                 }
             }
             &__chart {
