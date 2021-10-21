@@ -4469,6 +4469,7 @@ li {
     width: 100%; }
 
 .row_about {
+  padding-bottom: 260px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
