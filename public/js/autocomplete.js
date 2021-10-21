@@ -232,8 +232,7 @@ var AutoComplete = (function () {
             else
                 if (isEnter(key)) {
                     itemSelected.click();
-                    AutoComplete.prototype.preventSuggestionListToLoad();
-                    return false;
+                    return true;
                 }
                 else
                     return true;
