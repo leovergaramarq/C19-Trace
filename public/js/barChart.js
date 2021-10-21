@@ -1,231 +1,81 @@
 
-var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_deaths_per_million"];
-var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total Deaths per Million"];
-    function graf() {
-        let per = ["week","month",""];
-        var period = +document.getElementById("period").value;  
-        var filter = +document.getElementById("filter_t").value;
-        var query = new XMLHttpRequest();
-        console.log(typeof(period)); 
-        if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', '/api/continental/', true);
-            filter =1;
-        }else{
-            query.open('GET', '/api/continental/'+per[period-1], true);
-        }        
-        query.send();
-        query.onreadystatechange = function() {
+var fil = ["", "total_deaths", "total_cases", "total_cases_per_million", "total_deaths_per_million"];
+var fil_imp = ["", "Total Deaths", "Total Cases", "Total Cases per Million", "Total Deaths per Million"];
+var myChart;
+function graf() {
+
+    let per = ["week", "month", ""];
+    var period = +document.getElementById("period").value;
+    var filter = +document.getElementById("filter_t").value;
+    var query = new XMLHttpRequest();
+    console.log(typeof (period));
+    if (isNaN(period) || isNaN(filter)) {
+        query.open('GET', '/api/continental/', true);
+        filter = 1;
+    } else {
+        query.open('GET', '/api/continental/' + per[period - 1], true);
+    }
+    query.send();
+    query.onreadystatechange = function () {
         if (query.readyState == 4 && query.status == 200) {
             var datos = JSON.parse(query.responseText);
-            datos.splice(4,1);
-            datos.splice(7,1);
-            graficar(+filter, datos); 
+            datos.splice(2, 1);
+            datos.splice(1, 1);
+            graficar(+filter, datos);
         }
     }
 
-       function graficar(filter, datos) { 
 
-                var margin = {top: 20, right: 20, bottom: 100, left: 95},
-                width = 590 - margin.left - margin.right,
-                height = 400 - margin.top - margin.bottom;
-      
-      
-                var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
-                var y = d3.scaleLinear().range([height,0]);
+    function graficar(filter, datos) {
+        datos.forEach(function (d) {
 
-      
-                var xAxis = d3.axisBottom(x)
-                    .ticks(12);
-      
-                var yAxis = d3.axisLeft(y)
-                    .ticks(10);
-                var svg = d3.select(".ex__bar__area__chart")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate("+margin.left+","+margin.top+")");
-                datos.forEach(function(d){
-                  
-                    console.log(d[fil[filter]]);
-                    d.value = d[fil[filter]];
+            console.log(d[fil[filter]]);
+            d.value = d[fil[filter]];
 
-                }); 
-                x.domain(datos.map(function(d){return d.location;}));
-                y.domain([0, d3.max(datos,function(d){return d.value;})]);
-                var color = d3.scaleSequential()
-                .domain([0, d3.max(datos,function(d){return d.value;})])
-                .interpolator(d3.interpolateSpectral);
-
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0, " +height+")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".55em")
-                    .attr("transform", "rotate(-50)")
-  
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-            
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", -95)
-                    .attr("x",-height/2)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(fil_imp[filter]);
-        
-                svg.selectAll("rect")
-                    .data(datos)
-                    .enter()
-                        .append("rect")
-                        .attr("x", function(d) { return x(d.location); })
-                        .attr("width", x.bandwidth())
-                        .attr("y", function(d) { return y(d.value); })
-                        .attr("height", function(d){return height - y(d.value);})
-                        .style("fill", function(d) { return color(d.value); });
-
-
-            }
-
-            
+        });
+        const labels = datos.map(function (d) { return d.location })
+        console.log(labels)
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: fil_imp[filter],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'],
+                borderColor: ['rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'],
+                data: datos.map(function (d) { return d.value }),
+            }]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {}
+        };
+        console.log(myChart);
+        if (myChart) {
+            console.log('leonardo');
+            myChart.destroy();
         }
+        var ctx = document.getElementById("myChart").getContext('2d');
+        myChart = new Chart(
+            ctx,
+            config
+        );
 
 
 
+    }
+
+}
 graf();
 
-    function update() {
-                let per = ["week","month",""];
-        var period = +document.getElementById("period").value;  
-        var filter = +document.getElementById("filter_t").value;
-        var query = new XMLHttpRequest();
-        console.log(typeof(period)); 
-        if(isNaN(period) || isNaN(filter)) {
-            query.open('GET', '/api/continental/', true);
-            console.log("adfdsaffdsf");
-            filter =1;
-        }else{
-            query.open('GET', '/api/continental/'+per[period-1], true);
-        }        
-        query.send();
-        query.onreadystatechange = function() {
-        if (query.readyState == 4 && query.status == 200) {
-            var datos = JSON.parse(query.responseText);
-            datos.splice(4,1);
-            datos.splice(7,1);
-            d3.select('.ex__bar__area__chart')
-            .selectAll('text')
-            .join(
-                function(enter) {
-                    return enter.append('text')
-                        .style('opacity', 0);
-                },
-                function(update) {
-                    return update.style('opacity',0)
-                }
-            )
-            d3.select('.ex__bar__area__chart')
-            .selectAll('rect')
-            .join(
-                function(enter) {
-                    return enter.append('rect')
-                        .style('opacity', 0);
-                },
-                function(update) {
-                    return update.style('opacity',0)
-                }
-            )
-            d3.select('.ex__bar__area__chart')
-            .selectAll('g')
-            .data(datos)
-            .join(
-            function(enter) {
-                return enter.append('rect')
-                .style('opacity', 0.25);
-            },
-            function(update) {               
-                var margin = {top: 20, right: 20, bottom: 100, left: 95},
-                width = 590 - margin.left - margin.right,
-                height = 400 - margin.top - margin.bottom;
-      
-      
-                var x = d3.scaleBand().rangeRound([0,width]).paddingInner(0.05);
-                var y = d3.scaleLinear().range([height,0]);
-      
-
-      
-                var xAxis = d3.axisBottom(x)
-                    .ticks(12);
-      
-                var yAxis = d3.axisLeft(y)
-                    .ticks(10);
-                var svg = d3.select(".ex__bar__area__chart")
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate("+margin.left+","+margin.top+")");
-                datos.forEach(function(d){
-                  
-                    console.log(d[fil[filter]]);
-                    d.value = d[fil[filter]];
-
-                }); 
-                x.domain(datos.map(function(d){return d.location;}));
-                y.domain([0, d3.max(datos,function(d){return d.value;})]);
-        
-                var color = d3.scaleSequential()
-                .domain([0, d3.max(datos,function(d){return d.value;})])
-                .interpolator(d3.interpolateSpectral);
-               
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0, " +height+")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".55em")
-                    .attr("transform", "rotate(-50)");
-  
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-            
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", -95)
-                    .attr("x",-height/2)
-                    .attr("dy", ".71em")
-                    .style("text-anchor", "end")
-                    .text(fil_imp[filter]);
-        
-                svg.selectAll("rect")
-                    .data(datos)
-                    .enter()
-                        .append("rect")
-                        .attr("x", function(d) { return x(d.location); })
-                        .attr("width", x.bandwidth())
-                        .attr("y", function(d) { return y(d.value); })
-                        .attr("height", function(d){return height - y(d.value);})
-                        .style("fill", function(d) { return color(d.value); });
-
-                return svg;
-                    
-            }
-            ) 
-        }
-
-
-        
-    }
-}
