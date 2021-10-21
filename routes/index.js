@@ -27,6 +27,10 @@ router.get('/explore', function(req, res, next) {
 router.post('/list', function(req, res, next) {
   res.render('list');
 });
+
+router.get('/vista', function(req, res, next) {
+  res.render('nvista');
+});
 // router.get('/*', function(req, res, next) {
 //   res.render('404', { title: 'Express' });
 // });

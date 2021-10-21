@@ -1,3 +1,9 @@
+    <div>
+  <canvas id="myChart"></canvas>
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script>
+  // === include 'setup' then 'config' above ===
   var fil = ["","total_deaths", "total_cases","total_cases_per_million","total_deaths_per_million"];
   var fil_imp = ["","Total Deaths", "Total Cases","Total Cases per Million","Total Deaths per Million"];
       function graf() {
@@ -16,14 +22,13 @@
           query.onreadystatechange = function() {
           if (query.readyState == 4 && query.status == 200) {
               var datos = JSON.parse(query.responseText);
-              datos.splice(2,1);
-              datos.splice(1,1);
+              datos.splice(4,1);
+              datos.splice(7,1);
               graficar(+filter, datos);
           }
       }
     }
-
-function graficar (filter, datos) {
+function graficar () {
   datos.forEach(function(d){
 
     console.log(d[fil[filter]]);
@@ -31,7 +36,6 @@ function graficar (filter, datos) {
 
 });
   const labels = datos.map(function(d){return d.location})
-  console.log(labels)
 const data = {
   labels: labels,
   datasets: [{
@@ -52,3 +56,5 @@ const config = {
   );
 }
 graf();
+</script>
+

@@ -4546,33 +4546,34 @@ li {
           stroke-opacity: 0.3; }
   .ex__bar .grid-chart {
     display: grid;
-    grid-template-columns: 800px 1fr;
-    justify-items: start; }
+    grid-template-columns: 1fr 800px; }
   .ex__bar__area {
+    display: flex;
+    justify-content: end;
+    width: 800px;
+    height: 440px;
+    padding: 20px;
     border: 1px #4442 groove;
-    background-color: #fff;
+    background: #fff;
     box-shadow: 6px 6px 2px 1px rgba(169, 169, 169, 0.2); }
     .ex__bar__area__form {
       position: absolute;
       display: flex;
       flex-direction: column;
-      transform: translate(600px, 20px);
-      width: 180px; }
+      transform: translate(-590px, 20px);
+      width: 160px; }
       .ex__bar__area__form__form-group {
         width: 100%;
         margin: 10px; }
         .ex__bar__area__form__form-group select, .ex__bar__area__form__form-group option, .ex__bar__area__form__form-group button {
           font-size: 0.8rem; }
     .ex__bar__area__chart {
-      width: 800px;
-      height: 440px;
-      padding: 20px; }
-      .ex__bar__area__chart text {
-        font-family: helvetica;
-        font-size: 14px;
-        text-anchor: middle; }
+      max-width: 580px;
+      max-height: 400px;
+      margin: 0;
+      text-align: right; }
   .ex__bar__info {
-    padding-left: 20px;
+    padding-right: 20px;
     text-align: justify; }
   .ex__line .grid-chart {
     display: grid;

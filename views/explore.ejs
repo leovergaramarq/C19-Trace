@@ -38,7 +38,7 @@
         </div>
     </section>
 
-    <section class="ex__bar" ">
+    <section class="ex__bar" >
         <h2>Continental Summarized Data</h2>
         <div class=" grid-chart">
         <div class="ex__bar__area">
@@ -62,11 +62,12 @@
                 </div>
                 <div class="ex__bar__area__form__form-group">
                     <button style="width: 100%;" type="button" class="btn btn-secondary"
-                        onclick="update()">Update</button>
+                        onclick="graf()">Update</button>
                 </div>
 
             </form>
-            <svg class="ex__bar__area__chart"></svg>
+            
+             <canvas class="ex__bar__area__chart" id="myChart"></canvas>
         </div>
 
         <div class="ex__bar__info">
@@ -150,6 +151,9 @@
         </div>
 
     </div>
+        <div>
+  <canvas id="myChart"></canvas>
+</div>
 </section>
 
 </div>
@@ -181,4 +185,4 @@
 <script src="./js/mapChart.js" type="module"></script>
 <script src="./js/barChart.js"></script>
 <script src="./js/lineChart.js"></script>
-<script src="./js/barchart_chartjs.js"></script>
+<!-- <script src="./js/barchart_chartjs.js"></script> -->
