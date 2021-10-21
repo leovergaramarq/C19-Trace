@@ -1,5 +1,5 @@
 footer {
-    // position: absolute;
+    position: absolute;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -9,6 +9,7 @@ footer {
     color: white;
     // top: 100%;
     bottom: 0;
+    left: 0;
 
     h2 {
         font-size: $m-size;

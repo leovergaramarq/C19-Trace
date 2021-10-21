@@ -1,13 +1,14 @@
+(() => {
 
-var fil = ["", "total_deaths", "total_cases", "total_cases_per_million", "total_deaths_per_million"];
-var fil_imp = ["", "Total Deaths", "Total Cases", "Total Cases per Million", "Total Deaths per Million"];
-var myChart;
+let fil = ["", "total_deaths", "total_cases", "total_cases_per_million", "total_deaths_per_million"];
+let fil_imp = ["", "Total Deaths", "Total Cases", "Total Cases per Million", "Total Deaths per Million"];
+let myChart;
+
 function graf() {
-
     let per = ["week", "month", ""];
-    var period = +document.getElementById("period").value;
-    var filter = +document.getElementById("filter_t").value;
-    var query = new XMLHttpRequest();
+    let period = +document.getElementById("period").value;
+    let filter = +document.getElementById("filter_t").value;
+    let query = new XMLHttpRequest();
     console.log(typeof (period));
     if (isNaN(period) || isNaN(filter)) {
         query.open('GET', '/api/continental/', true);
@@ -18,13 +19,12 @@ function graf() {
     query.send();
     query.onreadystatechange = function () {
         if (query.readyState == 4 && query.status == 200) {
-            var datos = JSON.parse(query.responseText);
+            let datos = JSON.parse(query.responseText);
             datos.splice(2, 1);
             datos.splice(1, 1);
             graficar(+filter, datos);
         }
     }
-
 
     function graficar(filter, datos) {
         datos.forEach(function (d) {
@@ -66,16 +66,13 @@ function graf() {
             console.log('leonardo');
             myChart.destroy();
         }
-        var ctx = document.getElementById("myChart").getContext('2d');
+        let ctx = document.querySelector(".ex__bar__area__chart").getContext('2d');
         myChart = new Chart(
             ctx,
             config
         );
-
-
-
     }
-
 }
 graf();
 
+})()

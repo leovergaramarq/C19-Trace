@@ -4487,7 +4487,7 @@ li {
 
 .ex {
   margin-top: 60px;
-  padding: 0 80px 80px 80px;
+  padding: 0 80px 260px 80px;
   text-align: center; }
   .ex h1, .ex .h1 {
     padding: 10px 0; }
@@ -4495,6 +4495,12 @@ li {
     text-align: left; }
   .ex section {
     margin-bottom: 60px; }
+  .ex .section-info {
+    text-align: justify; }
+    .ex .section-info__left {
+      padding-right: 20px; }
+    .ex .section-info__right {
+      padding-left: 20px; }
   .ex__map__area {
     background-color: #fff;
     margin: auto;
@@ -4544,7 +4550,7 @@ li {
           stroke-opacity: 0.3; }
   .ex__bar .grid-chart {
     display: grid;
-    grid-template-columns: 1fr 800px; }
+    grid-template-columns: 800px 1fr; }
   .ex__bar__area {
     display: flex;
     justify-content: end;
@@ -4570,12 +4576,6 @@ li {
       max-height: 400px;
       margin: 0;
       text-align: right; }
-  .ex__bar__info {
-    margin-left: 20px;
-    padding-right: 20px;
-    text-align: justify;
-    max-width: 700px;
-    font-size: 20px; }
   .ex__line .grid-chart {
     display: grid;
     grid-template-columns: 1fr 800px; }
@@ -4596,44 +4596,56 @@ li {
       width: 180px; }
       .ex__line__area__form__form-group {
         width: 100%;
-        margin: 10px; }
+        margin: 10px;
+        display: flex; }
         .ex__line__area__form__form-group select, .ex__line__area__form__form-group option, .ex__line__area__form__form-group button {
           font-size: 0.8rem; }
         .ex__line__area__form__form-group button {
           width: 100%; }
+        .ex__line__area__form__form-group label {
+          height: min-content;
+          font-size: 0.8rem;
+          margin: 12px 6px 0 0; }
       .ex__line__area__form #form-input-country {
-        text-align: left; }
-        .ex__line__area__form #form-input-country input {
-          width: 75%; }
+        position: relative; }
+        .ex__line__area__form #form-input-country div {
+          margin-right: 6px; }
+          .ex__line__area__form #form-input-country div input {
+            width: 100%; }
         .ex__line__area__form #form-input-country button {
           width: 20%;
           height: 30px;
           border: none;
           border-radius: 2px;
           background-color: #6c757d;
-          color: white; }
-      .ex__line__area__form__badge-area span {
-        background-color: #6c757d;
-        border-radius: 2px;
-        width: min-content;
-        margin-bottom: 2px; }
-        .ex__line__area__form__badge-area span button {
-          font-size: 1rem;
-          background-color: inherit;
-          border: none;
-          color: white; }
-      .ex__line__area__form #form-input-period input {
-        width: 100%; }
+          color: white;
+          font-size: 1.2rem; }
+      .ex__line__area__form #form-input-group select {
+        width: 65%; }
+      .ex__line__area__form__badge-area {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-bottom: 4px; }
+        .ex__line__area__form__badge-area span {
+          display: flex;
+          background-color: #6c757d;
+          border-radius: 2px;
+          margin: 2px;
+          font-size: 0.6rem; }
+          .ex__line__area__form__badge-area span p {
+            margin: 0 6px 0 0;
+            line-height: 20px; }
+          .ex__line__area__form__badge-area span button {
+            font-size: 1rem;
+            background-color: inherit;
+            border: none;
+            color: white; }
     .ex__line__area__chart {
       max-width: 580px;
       max-height: 400px;
       margin: 0;
       text-align: right; }
-  .ex__line__info {
-    padding-right: 20px;
-    text-align: justify;
-    max-width: 700px;
-    font-size: 20px; }
 
 .autocomplete.dropdown {
   background-color: #F8F8F8;
@@ -4684,6 +4696,7 @@ li {
   height: 60px; }
 
 footer {
+  position: absolute;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -4691,7 +4704,8 @@ footer {
   padding: 20px;
   background-color: #212529;
   color: white;
-  bottom: 0; }
+  bottom: 0;
+  left: 0; }
   footer h2, footer .h2 {
     font-size: 1.2rem;
     padding: 4px 0; }

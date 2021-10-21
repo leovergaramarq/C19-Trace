@@ -1,37 +1,4 @@
-// new Chart(document.querySelector('.ex__line__area__chart').getContext('2d'), {
-//     type: 'bar',
-//     data: {
-//         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//         datasets: [{
-//             label: '# of Votes',
-//             data: [12, 19, 3, 5, 2, 3],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 159, 64, 0.2)'
-//             ],
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//                 'rgba(255, 159, 64, 1)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         }
-//     }
-// });
+import countries from './countries.json' assert {type: 'json'};
 
 (() => {
 
@@ -40,6 +7,8 @@ let chart = null;
 const NEW_C = 'new_cases', NEW_CPM = 'new_cases_per_million', NEW_D = 'new_deaths', 
     NEW_DPM = 'new_deaths_per_million';
 const DAY = 'day', WEEK = 'week', MONTH = 'month';
+const MAX_COUNTRIES = 5;
+const TODAY = new Date("2021,10,12");
 
 let variable = NEW_C;
 
@@ -83,79 +52,99 @@ const colors = {};
     colors.borderColor = baseColors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`);
 })();
 
-// Eventos
+// DOM
 (() => {
-    document.querySelector('.ex__line__area__form').addEventListener('submit', function(e) {
+    const $d = document;
+
+    // EVENTOS
+    // Evitar Reload
+    $d.querySelector('.ex__line__area__form').addEventListener('submit', function(e) {
         e.preventDefault();
     }, false);
-
+    
+    // Remover tag
+    $d.addEventListener('click',function(e){
+        if(e.target && e.target.className == 'close'){
+            const $span = e.target.parentElement;
+            $span.parentElement.removeChild($span);
+        }
+    });
+    
+    // Formato del tag
     const tagHTML = `
         <span class="badge badge-primary">
-            text
+            <p>text</p>
             <button type="button" class="close" aria-label="Close">
             &times;
         </button>
         </span>
     `
-    const $tagArea = document.querySelector('.ex__line__area__form__badge-area');
-    const $form = document.getElementById('form-input-country');
-    const $input = $form.querySelector('input');
-    const $btn = $form.querySelector('button');
-    
-    const addTag = text => {
-        const $tag = document.createElement('div');
+    const $tagArea = $d.querySelector('.ex__line__area__form__badge-area');
+    const $form = $d.getElementById('form-input-country');
+    const $inputCountry = $form.querySelector('input');
+    const $btnAddTag = $form.querySelector('button');
+
+    // FUNCIONES
+    function addTag(text){
+        const $tag = $d.createElement('div');
         $tagArea.appendChild($tag);
         $tag.outerHTML = tagHTML.replace('text', text);
-
-        // setTimeout(1000, () => {
-        //     const $close = $tag.lastElementChild();
-        //     console.log($close);
-        //     // const $close = document.createElement('div');
-        //     // $tag.appendChild($close);
-        //     // $close.outerHTML = closeHTML;
-        //     // console.log($tag);
-
-        // })
     }
+    function validTag(text) {
+        const children = [...$tagArea.children];
+        return text && children.length < MAX_COUNTRIES && 
+            !children.some($tag => $tag.firstElementChild.textContent.includes(text));
+    }
+    function addValidTag() {
+        const name = $inputCountry.value;
+        if(validTag(name) && countries[name]) addTag(name);
+    }
+
+    // Añadir tag
+    $btnAddTag.addEventListener('click', () => addValidTag());
+    $inputCountry.addEventListener('keyup', e => e.key === 'Enter' && addValidTag());
+
+    // Tags iniciales
+    urlParams.countries.forEach(country => {
+        const cKeys = Object.keys(countries);
+        const countryName = cKeys.find(c => countries[c] === country);
+        addTag(countryName);
+    })
+
+    // 
+    const $var = $d.querySelector('#form-input-var select');
+    const $group = $d.querySelector('#form-input-group select');
+    const $datePicker = $d.querySelector('#form-input-period input');
     
-    fetch('/api/global/')
-        .then(response => response.json())
-        .then(json => {
-            const countries = {};
-            json.forEach(country => countries[country.location] = country.Ccode);
-            
-            urlParams.countries.forEach(country => {
-                const cKeys = Object.keys(countries);
-                countryName = cKeys.find(c => countries[c] === country);
-                addTag(countryName);
-            })
+    // Variable inicial
+    let $options = [...$var.children];
+    let temp = (variable + '').replace('_', ' ');
+    $options.find(op => op.textContent.toLowerCase() === temp.replace('_', ' ')).setAttribute('selected', 'true');
+    
+    // Agrupación inicial
+    $options = [...$group.children];
+    temp = urlParams.group;
+    $options.find(op => op.textContent.toLowerCase() === temp).setAttribute('selected', 'true');
 
-            $btn.addEventListener('click', e => {
-                // console.log('asd');
-                // console.log(countries[$input.value]);
-                // const country = $input.value;
-                if(countries[$input.value]) {
-                    
-                }
-            })
+    // Período inicial
+    let date = new Date(TODAY.getTime() - urlParams.period * 24 * 3600 * 1000);
+    let dateInit = date.toISOString();
+    dateInit = dateInit.slice(0, dateInit.indexOf('T'))
+    $datePicker.setAttribute('value', dateInit);
 
-            const $update = document.getElementById('form-submit-linechart');
-            $update.addEventListener('click', e => {
-                const $period = document.querySelector('#form-input-period input');
-                const $group = document.querySelector('#form-input-group select');
-                
-                urlParams.period = String($period.value);
-                urlParams.group = $group.value === 1 ? DAY : $group.value === 2 ? WEEK : MONTH;
-                console.log(countries[$input.value]);
-                urlParams.countries.push(countries[$input.value])
-                addTag($input.value);
-
-                getData();
-            })
-
-        })
-
+    $d.getElementById('form-update-line-chart').addEventListener('click', e => {
+        variable = $var.value == 1 ? NEW_C : $var.value == 2 ? NEW_CPM : $var.value == 3 ? NEW_D : NEW_DPM;
         
+        urlParams.period = parseInt((TODAY.getTime() - new Date($datePicker.value).getTime()) / 1000 / 3600 / 24);
+        urlParams.group = $group.value == 1 ? DAY : $group.value == 2 ? WEEK : MONTH;
+        urlParams.countries = [...$tagArea.children].map($tag => countries[$tag.firstElementChild.textContent.trim()]);
+        
+        getData();
+    })
+
+    // Autocompletado
+    autocomplete($inputCountry, Object.keys(countries));
+
 })();
 
 // FUNCIONES
@@ -207,7 +196,7 @@ function getData() {
             };
             if(chart) chart.destroy();
             chart = new Chart($canvas.getContext('2d'), config);
-            chart.update();
+            // chart.update();
         });
 }
 getData();
