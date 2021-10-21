@@ -1,4 +1,3 @@
-(() => {
 
 let fil = ["", "total_deaths", "total_cases", "total_cases_per_million", "total_deaths_per_million"];
 let fil_imp = ["", "Total Deaths", "Total Cases", "Total Cases per Million", "Total Deaths per Million"];
@@ -74,5 +73,3 @@ function graf() {
     }
 }
 graf();
-
-})()
