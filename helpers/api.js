@@ -187,6 +187,12 @@ router.get('/line', async (req, res, next)=>{
                 },
                 new_deaths: {
                     $sum: '$data.new_deaths'
+                },
+                new_cases_per_million: {
+                    $sum: '$data.new_cases_per_million'
+                },
+                new_deaths_per_million: {
+                    $sum: '$data.new_deaths_per_million'
                 }
             }
         },
@@ -205,7 +211,9 @@ router.get('/line', async (req, res, next)=>{
                     $push: {
                         year: '$_id.year',
                         new_cases: '$new_cases',
-                        new_deaths: '$new_deaths'
+                        new_deaths: '$new_deaths',
+                        new_cases_per_million: '$new_cases_per_million',
+                        new_deaths_per_million: '$new_deaths_per_million'
                     }
                 }
             }

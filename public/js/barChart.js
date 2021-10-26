@@ -8,7 +8,7 @@ function graf() {
     let period = +document.getElementById("period").value;
     let filter = +document.getElementById("filter_t").value;
     let query = new XMLHttpRequest();
-    console.log(typeof (period));
+    // console.log(typeof (period));
     if (isNaN(period) || isNaN(filter)) {
         query.open('GET', '/api/continental/', true);
         filter = 1;
@@ -28,12 +28,12 @@ function graf() {
     function graficar(filter, datos) {
         datos.forEach(function (d) {
 
-            console.log(d[fil[filter]]);
+            // console.log(d[fil[filter]]);
             d.value = d[fil[filter]];
 
         });
         const labels = datos.map(function (d) { return d.location })
-        console.log(labels)
+        // console.log(labels)
         const data = {
             labels: labels,
             datasets: [{
@@ -60,9 +60,9 @@ function graf() {
             data: data,
             options: {}
         };
-        console.log(myChart);
+        // console.log(myChart);
         if (myChart) {
-            console.log('leonardo');
+            // console.log('leonardo');
             myChart.destroy();
         }
         let ctx = document.querySelector(".ex__bar__area__chart").getContext('2d');

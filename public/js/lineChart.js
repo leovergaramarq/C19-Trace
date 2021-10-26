@@ -149,7 +149,6 @@ const colors = {};
 
 // FUNCIONES
 function getData() {
-    
     fetch(PATH + parseUrlParams())
         .then(response => response.json())
         .then(json => {
@@ -205,8 +204,8 @@ function parseUrlParams() {
     const {period, group, countries} = urlParams;
     let parsed = '?';
     
-    if(period !== undefined) parsed += `&period=${period}`;
-    if(group !== undefined) parsed += `&group=${group}`;
+    if(period) parsed += `&period=${period}`;
+    if(group) parsed += `&group=${group}`;
     countries.forEach(country => parsed += `&country=${country}`)
 
     return parsed;
