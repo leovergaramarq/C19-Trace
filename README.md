@@ -72,3 +72,6 @@ Run the application
 
 ## Acknowledgements
  - [Our World in Data](https://ourworldindata.org/covid-deaths)
+ - [muratkemaldar/using-react-hooks-with-d3](https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/12-geo)
+ - [GeoJSON Maps of the globe](https://geojson-maps.ash.ms)
+ - [W3Schools](https://www.w3schools.com/howto/howto_js_autocomplete.asp)
