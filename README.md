@@ -63,7 +63,7 @@ Run the application
 
     npm start
 
-<img src="https://raw.githubusercontent.com/LeonardoVergara/C19-Trace/main/.github/images/home.png" height="300">
+<img src="https://raw.githubusercontent.com/LeonardoVergara/C19-Trace/main/.github/images/home.png" height="260">
 
 ## Authors
  - Leonardo Aguilera - [leoar0810](https://github.com/leoar0810)
