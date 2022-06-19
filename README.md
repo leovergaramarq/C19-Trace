@@ -1,7 +1,7 @@
 # C19-Trace
 Website for the visualization of data on the Covid-19 pandemic around the world in graphic form. Data taken from the [Our World in Data](https://ourworldindata.org/covid-deaths) dataset.
 
-<img src="https://raw.githubusercontent.com/LeonardoVergara/C19-Trace/main/.github/images/map_chart.png" height="400">
+<img src="https://user-images.githubusercontent.com/73978713/174461077-18870a9f-5b41-430c-ae9f-56da7d3bf7ef.png" height="400">
 
 ### Built With
 
@@ -63,7 +63,7 @@ Run the application
 
     npm start
 
-<img src="https://raw.githubusercontent.com/LeonardoVergara/C19-Trace/main/.github/images/home.png" height="260">
+<img src="https://user-images.githubusercontent.com/73978713/174461078-9b3d335a-c03e-4683-a98b-7e3210cadfd5.png" height="260">
 
 ## Authors
  - Leonardo Aguilera - [leoar0810](https://github.com/leoar0810)
