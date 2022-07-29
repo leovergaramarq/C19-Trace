@@ -12,6 +12,7 @@ Website for the visualization of data on the Covid-19 pandemic around the world 
  - [Visual Studio Code](https://code.visualstudio.com)
  - [Bootstrap](https://getbootstrap.com)
  - [Sass](https://sass-lang.com)
+ - [EJS](https://ejs.co)
 
 ## Getting Started
 You can clone this repsitory to get the source code
