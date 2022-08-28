@@ -17,7 +17,7 @@ Website for the visualization of data on the Covid-19 pandemic around the world 
 ## Getting Started
 You can clone this repsitory to get the source code
 
-    git clone https://github.com/LeonardoVergara/C19-Trace.git
+    git clone https://github.com/vergaraldvm/C19-Trace.git
 
 
 ## Database Installation
