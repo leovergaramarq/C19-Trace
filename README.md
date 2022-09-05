@@ -17,7 +17,7 @@ Website for the visualization of data on the Covid-19 pandemic around the world 
 ## Getting Started
 You can clone this repsitory to get the source code
 
-    git clone https://github.com/vergaraldvm/C19-Trace.git
+    git clone https://github.com/leovergaramarq/C19-Trace.git
 
 
 ## Database Installation
@@ -69,7 +69,7 @@ Run the application
 ## Authors
  - Leonardo Aguilera - [leoar0810](https://github.com/leoar0810)
  - Leonardo Lizcano - [LeoLizc](https://github.com/LeoLizc)
- - Leonardo Vergara - [LeonardoVergara](https://github.com/LeonardoVergara)
+ - Leonardo Vergara - [leovergaramarq](https://github.com/leovergaramarq)
 
 ## Acknowledgements
  - [Our World in Data](https://ourworldindata.org/covid-deaths)
